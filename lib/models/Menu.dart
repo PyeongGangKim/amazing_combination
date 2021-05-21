@@ -1,11 +1,10 @@
 
-
 import 'package:flutter/material.dart';
 
 class Menu {
-  String uid;
+  String id;
   String name;
   int price;
-  Image image;
+  String imageUrl;
   List<String> tag;
 }
