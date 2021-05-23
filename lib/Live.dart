@@ -14,9 +14,9 @@ class LivePage extends StatelessWidget {
           title: Text('실시간'),
           bottom: TabBar(
             tabs: [
-              Tab(text: 'ee',),
-              Tab(text: 'eeeee'),
-              Tab(text: '정렬')
+              Tab(text: '좋아요 많은 순',),
+              Tab(text: '평점 높은 순'),
+              Tab(text: '정렬기준')   // ?
             ],
           ),
         ),

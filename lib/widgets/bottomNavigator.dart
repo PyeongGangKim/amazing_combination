@@ -3,17 +3,15 @@ import 'package:flutter/material.dart';
 
 class BottomNavigator extends StatelessWidget {
   const BottomNavigator({Key key}) : super(key: key);
-//237 121 78
-  final Color color = const Color(0xFFED794E);
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       showUnselectedLabels: true,
-      unselectedItemColor: color,
-      selectedItemColor: color,
-      unselectedLabelStyle: TextStyle(color: color),
-      selectedLabelStyle: TextStyle(color: color),
+      unselectedItemColor: Theme.of(context).primaryColor,
+      selectedItemColor: Theme.of(context).primaryColor,
+      unselectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
+      selectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite),

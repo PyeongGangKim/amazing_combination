@@ -35,6 +35,7 @@ Widget TagButton(String tag) {
         icon: Icon(Icons.fastfood),
         onPressed: () {
           // navigate
+          // TODO: navigate - push? replace?
           print(tag);
         },
       ),
