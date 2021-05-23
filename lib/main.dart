@@ -5,7 +5,6 @@ import 'package:amazing_combination/Live.dart';
 import 'package:amazing_combination/MyPage.dart';
 import 'package:amazing_combination/Search.dart';
 import 'package:amazing_combination/controllers/CombinationController.dart';
-import 'package:amazing_combination/widgets/bottomNavigator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controllers/MultiBinding.dart';
@@ -71,15 +70,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget bottomNavigator() {
-    final Color color = const Color(0xFFED794E);
-    // final Color color = Colors.black;
-
     return BottomNavigationBar(
       showUnselectedLabels: true,
-      unselectedItemColor: color,
-      selectedItemColor: color,
-      unselectedLabelStyle: TextStyle(color: color),
-      selectedLabelStyle: TextStyle(color: color),
+      unselectedItemColor: Theme.of(context).primaryColor,
+      selectedItemColor: Theme.of(context).primaryColor,
+      unselectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
+      selectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
             icon: Icon(Icons.favorite),

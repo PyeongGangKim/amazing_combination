@@ -1,7 +1,6 @@
 
 import 'package:amazing_combination/Live.dart';
 import 'package:amazing_combination/widgets/combinationList.dart';
-import 'package:amazing_combination/widgets/bottomNavigator.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
