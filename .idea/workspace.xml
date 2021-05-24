@@ -2,24 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f46bb8b1-d39e-4c75-b7a4-2ae05ccea846" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/constants/firebase.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/controllers/BrandController.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/controllers/TagController.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/widgets/login.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/yee.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Brand.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Combination.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Home.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Live.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/MyPage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Search.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/amazing_combination.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/amazing_combination.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controllers/CombinationController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/CombinationController.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controllers/CounterController.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controllers/MenuController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/MenuController.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controllers/MultiBinding.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/MultiBinding.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controllers/UserController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controllers/UserController.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/Brand.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Brand.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/Combination.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Combination.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/Menu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Menu.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/Tag.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Tag.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/User.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/User.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/bottomNavigator.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +82,7 @@
       <workItem from="1621309772059" duration="190000" />
       <workItem from="1621350331443" duration="3557000" />
       <workItem from="1621432921467" duration="38306000" />
-      <workItem from="1621754192649" duration="19646000" />
+      <workItem from="1621754192649" duration="20166000" />
     </task>
     <servers />
   </component>

@@ -1,10 +1,13 @@
-import 'package:amazing_combination/controllers/BrandController.dart';
-import 'package:amazing_combination/controllers/CombinationController.dart';
+
+import 'package:amazing_combination/Brand.dart';
+import 'package:amazing_combination/Home.dart';
+import 'package:amazing_combination/Live.dart';
+import 'package:amazing_combination/MyPage.dart';
+import 'package:amazing_combination/Search.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controllers/MultiBinding.dart';
-import 'models/Combination.dart';
-import 'models/Brand.dart';
 import 'constants/firebase.dart';
 
 void main() async {
@@ -21,8 +24,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      //237 121 78
+      theme: ThemeData(
+        primaryColor: Color(0xFFED794E),
+        accentColor: Color(0xFFED794E),
+      ),
       title: 'Amazing_Combination',
-      home: HomePage(),
+      home: MainPage(),
       getPages: [
         //GetPage(name: '/next', page: () => NextPage()),
       ],
@@ -30,53 +38,82 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
-  BrandController bc = Get.find<BrandController>();
+
+class MainPage extends StatefulWidget {
+  const MainPage({Key key}) : super(key: key);
+
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+
+  int _selectedIndex = 0;
+
+  List<Widget> pages = <Widget>[
+    // CombinationPage(),
+    BrandPage(),
+    LivePage(),
+    HomePage(),
+    SearchPage(),
+    MyPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    bc.loadBrand();
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Amazing Combination"),
-      ),
-      body: GetBuilder<BrandController>(
-        builder: (value) {
-          if (value.brandList == null || value.brandList.isEmpty) {
-            return Container(
-                child: Text("null")
-            );
-          }
-          return Container(
-            child: Text(
-              value.brandList[0].menuList[0].name,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-              maxLines: 1,
-            ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          bc.addCombinationInBrand(
-            Combination(
-              name: "육고",
-              brand: "육대장",
-              menuList: ["육계장"],
-              tags : ["한식"],
-              imageUrls: ["asd","we"],
-              description: "asdasdasd",
-              like : 0,
-              likePerson: [],
-              uid: "st",
-              maker: "masd",
-            ),
-            bc.brandList[0].name,
-          );
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: pages[_selectedIndex],
+      bottomNavigationBar: bottomNavigator(),
+    );
+  }
+
+  void _onTap(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  Widget bottomNavigator() {
+    return BottomNavigationBar(
+      showUnselectedLabels: true,
+      unselectedItemColor: Theme.of(context).primaryColor,
+      selectedItemColor: Theme.of(context).primaryColor,
+      unselectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
+      selectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: '브랜드'
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.whatshot),
+            label: '실시간'
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '홈'
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: '검색'
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: '마이페이지'
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      onTap: _onTap,
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
