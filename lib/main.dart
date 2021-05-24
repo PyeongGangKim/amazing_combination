@@ -4,6 +4,7 @@ import 'package:amazing_combination/Home.dart';
 import 'package:amazing_combination/Live.dart';
 import 'package:amazing_combination/MyPage.dart';
 import 'package:amazing_combination/Search.dart';
+import 'package:amazing_combination/Combination.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,11 +33,17 @@ class MyApp extends StatelessWidget {
       title: 'Amazing_Combination',
       home: MainPage(),
       getPages: [
-        //GetPage(name: '/next', page: () => NextPage()),
+        GetPage(name: '/brand', page: () => BrandPage()),
+        GetPage(name: '/live', page: () => LivePage()),
+        GetPage(name: '/combination', page: () => CombinationPage()),
+        GetPage(name: '/search', page: () => SearchPage()),
+        GetPage(name: '/mypage', page: () => MyPage()),
       ],
     );
   }
 }
+
+
 
 
 class MainPage extends StatefulWidget {

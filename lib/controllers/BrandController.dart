@@ -145,5 +145,11 @@ class BrandController extends GetxController {
       'created_date_time' : FieldValue.serverTimestamp()
     });
   }
+  void selectBrand(int idx){
+    _selectedBrand = idx;
+    update();
+  }
   List<Brand> brandList;
+  int _selectedBrand;
+  int get selectedBrand => _selectedBrand;
 }

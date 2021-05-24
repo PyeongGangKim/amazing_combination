@@ -1,10 +1,14 @@
-
+import 'package:amazing_combination/controllers/BrandController.dart';
+import 'package:amazing_combination/controllers/CombinationController.dart';
 import 'package:amazing_combination/widgets/combinationList.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CombinationPage extends StatelessWidget {
   const CombinationPage({Key key}) : super(key: key);
-
+  static final idx = Get.arguments['idx'];
+  static final BrandController bc = Get.find<BrandController>();
+  static final CombinationController cbc = Get.find<CombinationController>();
 
   @override
   Widget build(BuildContext context) {

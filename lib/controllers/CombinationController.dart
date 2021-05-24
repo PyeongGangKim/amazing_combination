@@ -17,21 +17,6 @@ class CombinationController extends GetxController {
         .listen((snapshots){
           combinationList = [];
       snapshots.docs.forEach((combination) {
-        /*List<Comment> commentList = [];
-          FirebaseFirestore.instance
-              .collection('Combination/$combination.id/Comments')
-              .snapshots()
-              .listen((comments){
-                comments.docs.forEach((comment){
-                  commentList.add(
-                    Comment(
-                      id :comment.id,
-                      maker: comment.data()['maker'],
-                      content: comment.data()['content']
-                    )
-                  );
-                });
-          });*/
         combinationList.add(
           Combination(
             id: combination.id,
@@ -50,9 +35,6 @@ class CombinationController extends GetxController {
         );
        });
       print("-----combination------");
-      for(int i = 0 ; i < combinationList.length ; i++){
-        combinationList[i].name;
-      }
       update();
     });
     }
@@ -76,6 +58,11 @@ class CombinationController extends GetxController {
         'maker': combination.maker,
       });
     }
-
+    void selectCombination(int idx){
+      _selectedCombination = idx;
+      update();
+    }
     List<Combination> combinationList;
+    int _selectedCombination;
+    int get selectedCombination => _selectedCombination;
 }
