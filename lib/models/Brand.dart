@@ -8,4 +8,11 @@ class Brand {
   List<Combination> combinations;
   String imageUrl;
   List<String> tags;
+  Brand({
+    this.name,
+    this.menuList,
+    this.combinations,
+    this.imageUrl,
+    this.tags,
+  });
 }

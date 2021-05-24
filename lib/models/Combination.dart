@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'Comment.dart';
 
 class Combination {
@@ -6,7 +5,7 @@ class Combination {
   String name;
   String brand;
   List<String> menuList;
-  List<String> tag;
+  List<String> tags;
   List<String> imageUrls;
   String description;
   String createdDateTime;
@@ -21,7 +20,7 @@ class Combination {
     this.name,
     this.brand,
     this.menuList,
-    this.tag,
+    this.tags,
     this.imageUrls,
     this.description,
     this.createdDateTime,

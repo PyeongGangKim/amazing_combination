@@ -1,12 +1,18 @@
+import 'package:amazing_combination/controllers/BrandController.dart';
 import 'package:amazing_combination/controllers/CombinationController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controllers/MultiBinding.dart';
-import 'controllers/CounterController.dart';
-import './models/Combination.dart';
+import 'models/Combination.dart';
+import 'models/Brand.dart';
+import 'constants/firebase.dart';
 
-void main() {
-  MultiBinding().dependencies();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initialization.then((value){
+    MultiBinding().dependencies();
+
+  });
   runApp(MyApp());
 }
 
@@ -25,27 +31,25 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  CombinationController cbc = Get.find<CombinationController>();
-
+  BrandController bc = Get.find<BrandController>();
 
   @override
   Widget build(BuildContext context) {
-    cbc.init();
-    List<Combination> combinations = cbc.combinationList;
+    bc.loadBrand();
     return Scaffold(
       appBar: AppBar(
         title: Text("Amazing Combination"),
       ),
-      body: GetBuilder<CombinationController>(
+      body: GetBuilder<BrandController>(
         builder: (value) {
-          if (value.combinationList == null || value.combinationList.isEmpty) {
+          if (value.brandList == null || value.brandList.isEmpty) {
             return Container(
                 child: Text("null")
             );
           }
           return Container(
             child: Text(
-              value.combinationList[value.combinationList.length-1].id,
+              value.brandList[0].menuList[0].name,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
               maxLines: 1,
             ),
@@ -54,19 +58,20 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          cbc.addCombination(
+          bc.addCombinationInBrand(
             Combination(
-              name: "치킨피자피",
-              brand: "치킨나라피자공주",
-              menuList: ["피자", "치킨"],
-              tag : ["피자", "치킨"],
+              name: "육고",
+              brand: "육대장",
+              menuList: ["육계장"],
+              tags : ["한식"],
               imageUrls: ["asd","we"],
               description: "asdasdasd",
               like : 0,
               likePerson: [],
               uid: "st",
               maker: "masd",
-            )
+            ),
+            bc.brandList[0].name,
           );
         },
         tooltip: 'Increment',

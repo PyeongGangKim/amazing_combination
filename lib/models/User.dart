@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'combination.dart';
+import 'Combination.dart';
 
 class User {
   String id;
@@ -8,5 +7,11 @@ class User {
   String description;
   List<Combination> combinations;
 
-  User(this.id, this.nickname, this.imageUrl, this.description, this.combinations);
+  User({
+      this.id,
+      this.nickname,
+      this.imageUrl,
+      this.description,
+      this.combinations
+  });
 }
