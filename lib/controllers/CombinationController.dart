@@ -6,12 +6,11 @@ import '../models/Combination.dart';
 import 'dart:async';
 
 class CombinationController extends GetxController {
-  Future<void> init() async {
-
-    await loadCombination();
+  CombinationController () {
+    loadCombination();
   }
   Future<void> loadCombination() async{
-    print("--------load----------");
+    print("--------Combination load----------");
     FirebaseFirestore.instance
         .collection('Combinations')
         .snapshots()

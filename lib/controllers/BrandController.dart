@@ -13,6 +13,9 @@ import 'UserController.dart';
 class BrandController extends GetxController {
   UserController uc = Get.find<UserController>();
   CombinationController cbc = Get.find<CombinationController>();
+  BrandController(){
+    loadBrand();
+  }
   void loadBrand() {
     print("--------brand load----------");
     FirebaseFirestore.instance

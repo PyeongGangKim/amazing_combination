@@ -7,8 +7,11 @@ import '../models/Combination.dart';
 import 'dart:async';
 
 class MenuController extends GetxController {
+  MenuController(){
+    loadMenu();
+  }
   void loadMenu() {
-    print("--------load----------");
+    print("--------Menu load----------");
     FirebaseFirestore.instance
         .collection('Menus')
         .snapshots()
