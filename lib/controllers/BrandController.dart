@@ -165,7 +165,7 @@ class BrandController extends GetxController {
     update();
   }
 
-  List<Brand> brandList;
+  List<Brand> brandList = [].obs;
   int _selectedBrand;
   int get selectedBrand => _selectedBrand;
 }
