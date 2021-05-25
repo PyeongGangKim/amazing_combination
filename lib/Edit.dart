@@ -17,6 +17,7 @@ class EditPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     TextEditingController nameController = TextEditingController(text: name);
     TextEditingController descController = TextEditingController(text: description);
 
@@ -25,8 +26,10 @@ class EditPage extends StatelessWidget {
         title: Text('정보 수정'),
       ),
       body: GetBuilder<UserController>(
+        init: UserController(),
         builder: (userController) {
           return GetBuilder<EditController>(
+            init: EditController(),
             builder: (controller) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,16 +48,13 @@ class EditPage extends StatelessWidget {
                         ? Image.network(imageURL, fit: BoxFit.fill)
                         : Image.file(File(controller.selectedImage.value))
                     ),
-                    // child: Image.network(
-                    //   imageURL,
-                    //   fit: BoxFit.fill,
-                    // )
                   ),
                   SizedBox(height: 20,),
                   IconButton(
                     icon: Icon(Icons.camera_alt_outlined),
-                    onPressed: () {
-                      controller.getImage();
+                    onPressed: () async {
+                      await controller.getImage();
+                      print('image picked');
                     },
                   ),
                   TextFormField(

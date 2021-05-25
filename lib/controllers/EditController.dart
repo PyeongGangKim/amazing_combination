@@ -8,7 +8,7 @@ class EditController extends GetxController {
 
   final selectedImage = ''.obs;
 
-  void getImage() async {
+  Future<void> getImage() async {
     print('pick image');
     final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
     print('picked');

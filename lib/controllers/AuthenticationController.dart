@@ -1,3 +1,4 @@
+import 'package:amazing_combination/controllers/UserController.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,7 +11,13 @@ enum ApplicationLoginState{
 
 class AuthenticationController extends GetxController{
 
-  void signInWithGoogle() async {
+  User _auth;
+  User get auth => _auth;
+
+  ApplicationLoginState _loginState = ApplicationLoginState.loggedOut;
+  ApplicationLoginState get loginState => _loginState;
+
+  Future<void> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser
         .authentication;
@@ -23,11 +30,8 @@ class AuthenticationController extends GetxController{
     UserCredential userCredential = await FirebaseAuth.instance
         .signInWithCredential(credential);
     _auth = userCredential.user;
+    _loginState = ApplicationLoginState.googleLogin;
+
+    update();
   }
-
-    User _auth;
-    User get auth => _auth;
-
-    ApplicationLoginState _loginState = ApplicationLoginState.loggedOut;
-    ApplicationLoginState get loginState => _loginState;
 }

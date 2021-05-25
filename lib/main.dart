@@ -1,5 +1,6 @@
 
 import 'package:amazing_combination/Brand.dart';
+import 'package:amazing_combination/Edit.dart';
 import 'package:amazing_combination/Home.dart';
 import 'package:amazing_combination/Live.dart';
 import 'package:amazing_combination/MyPage.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/combination', page: () => CombinationPage()),
         GetPage(name: '/search', page: () => SearchPage()),
         GetPage(name: '/mypage', page: () => MyPage()),
+        GetPage(name: '/edit', page: () => EditPage()),
       ],
     );
   }
