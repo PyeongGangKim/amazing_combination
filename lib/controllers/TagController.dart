@@ -61,7 +61,8 @@ class TagController extends GetxController {
         .collection('Tags')
         .doc(tag)
         .collection('Combinations')
-        .add({
+        .doc(combination.id)
+        .set({
       'name': combination.name,
       'brand': combination.brand,
       'menuList': combination.menuList,
