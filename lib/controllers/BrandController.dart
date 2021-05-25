@@ -1,4 +1,6 @@
+
 import 'package:amazing_combination/controllers/TagController.dart';
+import 'package:amazing_combination/Brand.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/Brand.dart';
@@ -12,12 +14,21 @@ import 'CombinationController.dart';
 import 'UserController.dart';
 
 class BrandController extends GetxController {
+
   UserController uc = Get.find<UserController>();
   CombinationController cbc = Get.find<CombinationController>();
+
   TagController tc = Get.find<TagController>();
-  BrandController(){
+
+    List<Brand> brandList;
+    List<Widget> brandTabs = [BrandList(), BrandList(), BrandList()];
+    int _selectedBrand;
+    int get selectedBrand => _selectedBrand;
+
+  BrandController() {
     loadBrand();
   }
+
   void loadBrand() {
     print("--------brand load----------");
     FirebaseFirestore.instance
@@ -165,7 +176,5 @@ class BrandController extends GetxController {
     update();
   }
 
-  List<Brand> brandList = [].obs;
-  int _selectedBrand;
-  int get selectedBrand => _selectedBrand;
+
 }

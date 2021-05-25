@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:amazing_combination/controllers/AuthenticationController.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import '../models/User.dart';
 import '../models/Combination.dart';
@@ -8,9 +11,12 @@ import 'dart:async';
 
 
 class UserController extends GetxController {
+
   AuthenticationController ac = Get.find<AuthenticationController>();
 
-  void loadUser() async {
+  final appUser = User().obs;
+
+  Future<void> loadUser() async {
 
     FirebaseFirestore.instance
         .collection('Users')
@@ -45,17 +51,31 @@ class UserController extends GetxController {
               );
             });
           });
-          appUser = User(
-            id: user.id,
-            combinations: combinationList,
-            nickname: user.data()["nickname"],
-            imageUrl: user.data()["imageUrl"],
-            description: user.data()["description"],
-
-          );
+          appUser.value.id = user.id;
+          appUser.value.combinations = combinationList;
+          appUser.value.nickname = user.data()["nickname"];
+          appUser.value.imageUrl = user.data()["imageUrl"];
+          appUser.value.description = user.data()["description"];
+      update();
         });
   }
-  void addUser(){
+
+  void identifyUser() {
+    FirebaseFirestore.instance
+      .collection('Users')
+      .doc(ac.auth.uid)
+      .get()
+      .then((value) async {
+        if(value.exists) {
+          await loadUser();
+        }
+        else {
+          await addUser();
+        }
+    });
+  }
+
+  Future<void> addUser() async {
     FirebaseFirestore.instance
         .collection('Users')
         .doc(ac.auth.uid).
@@ -63,25 +83,47 @@ class UserController extends GetxController {
       'id' : ac.auth.uid,
       'nickname': ac.auth.displayName,
       'imageUrl': ac.auth.photoURL,
-      'description': "",
+      'description': "자신에 대해 알려주세요!",
     });
+    update();
   }
 
-  void updateUser(User changeUser){
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(appUser.id)
-        .update({
-      'nickname' : changeUser.nickname,
-      'imageUrl' : changeUser.imageUrl,
-      'description' : changeUser.description,
-    });
+  void updateUser(String nickname, String desc, String selectedImage) async {
+
+    if(selectedImage == '') {
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(appUser.value.id)
+          .update({
+        'nickname' : nickname,
+        'description' : desc,
+      });
+    }
+    else {
+      print('filename: ' + appUser.value.id);
+      String filename = appUser.value.id;
+      Reference reference = FirebaseStorage.instance.ref().child('users/$filename');
+      await reference.putFile(File(selectedImage));
+
+      String imageURL = await reference.getDownloadURL();
+      print('fileURL: ' + imageURL);
+
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(appUser.value.id)
+          .update({
+        'nickname' : nickname,
+        'imageUrl' : imageURL,
+        'description' : desc,
+      });
+    }
+
   }
 
   void addCombinationInUser(Combination combination){
     FirebaseFirestore.instance
         .collection('Users')
-        .doc(appUser.id)
+        .doc(appUser.value.id)
         .collection('Combinations')
         .doc(combination.id)
         .set({
@@ -98,5 +140,5 @@ class UserController extends GetxController {
       'maker': combination.maker,
     });
   }
-  User appUser;
+
 }

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 class BrandPage extends StatelessWidget {
   const BrandPage({Key key}) : super(key: key);
   static final BrandController bc = Get.find<BrandController>();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -23,11 +24,12 @@ class BrandPage extends StatelessWidget {
           ),
         ),
         body: TabBarView(
-          children: [
-            BrandList(),
-            BrandList(),
-            BrandList(),
-          ],
+          children: bc.brandTabs,
+          // children: [
+          //   BrandList(),
+          //   BrandList(),
+          //   BrandList(),
+          // ],
         ),
       ),
     );
