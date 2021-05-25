@@ -13,7 +13,7 @@ class CombinationList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<BrandController>(builder: (value){
       return ListView.separated(
-        itemBuilder: (context, int index) => Combination(value, index),
+        itemBuilder: (context, int index) => _combination(value, index),
         separatorBuilder: (context, int index) => const Divider(),
         itemCount: (value.brandList[value.selectedBrand].combinations == null) ? 0 : value.brandList[value.selectedBrand].combinations.length
       );
@@ -21,7 +21,7 @@ class CombinationList extends StatelessWidget {
   }
 }
 
-Widget Combination(BrandController value, int idx) {
+Widget _combination(BrandController value, int idx) {
   // TODO: Indicate 1st & 2nd most favorite combination
   var combinationName = value.brandList[value.selectedBrand].combinations[idx].name;
   return ListTile(

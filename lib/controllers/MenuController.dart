@@ -23,13 +23,26 @@ class MenuController extends GetxController {
                 id: menu.id,
                 name: menu.data()['name'],
                 price: menu.data()['price'],
-                imageUrl: menu.data()['imageUrl'].cast<String>(),
-                tags: menu.data()['tag'].cast<String>(),
+                imageUrl: menu.data()['imageUrl'],
+                tags: menu.data()['tag'],
+                brand: menu.data()['brand'],
             )
         );
       });
       update();
     });
   }
-  List<Menu> menuList;
+  void selectMenu(int idx){
+    _selectedMenu.add(idx);
+  }
+  void cancelMenu(int idx){
+    _selectedMenu.remove(idx);
+  }
+  void clearSelectedMenu(){
+    _selectedMenu.clear();
+  }
+
+  List<Menu> menuList =[];
+  List<int> _selectedMenu = [];
+  List<int> get selectedMenu => _selectedMenu;
 }

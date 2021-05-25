@@ -1,3 +1,4 @@
+import 'package:amazing_combination/controllers/TagController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/Brand.dart';
@@ -13,6 +14,7 @@ import 'UserController.dart';
 class BrandController extends GetxController {
   UserController uc = Get.find<UserController>();
   CombinationController cbc = Get.find<CombinationController>();
+  TagController tc = Get.find<TagController>();
   BrandController(){
     loadBrand();
   }
@@ -20,42 +22,51 @@ class BrandController extends GetxController {
     print("--------brand load----------");
     FirebaseFirestore.instance
         .collection('Brands')
-        .snapshots()
-        .listen((snapshots){
-      brandList = [];
-      snapshots.docs.forEach((brand) async {
-        List<Menu> menuList = [];
+        .get()
+        .then((brands) {
+          brands.docs.forEach((brand) async {
+            print(brand.data()['name']);
+        brandList = [];
+            List<Menu> menuList = [];
+            List<Combination> combinationList = [];
         await FirebaseFirestore.instance
             .collection('Brands')
             .doc(brand.id)
             .collection('Menus')
-            .snapshots()
-            .listen((menus){
-          menus.docs.forEach((menu){
-            menuList.add(
-                Menu(
-                    id :menu.id,
-                    name: menu.data()['name'],
-                    price: menu.data()['price'],
-                    imageUrl: menu.data()['imageUrl'],
-                    tags: menu.data()['tags'].cast<String>(),
-                )
-            );
+            .get()
+            .then((menus){
+            menus.docs.forEach((menu) {
+                menuList.add(
+                    Menu(
+                      id :menu.id,
+                      name: menu.data()['name'],
+                      price: menu.data()['price'],
+                      imageUrl: menu.data()['imageUrl'],
+                      tags: menu.data()['tags'].cast<String>().toList(),
+                      brand: menu.data()['brand'],
+                    )
+                );
+              });
           });
-        });
-        List<Combination> combinationList = [];
+        combinationList = [];
         await FirebaseFirestore.instance
             .collection('Brands')
             .doc(brand.id)
             .collection('Combinations')
-            .snapshots()
-            .listen((combinations) {
-          combinations.docs.forEach((combination) async {
+            .get()
+            .then((combinations) {
+            combinations.docs.forEach((combination) async {
+            print(combination.data()['name']);
             List<Comment> commentList = [];
             await FirebaseFirestore.instance
-                .collection('Brands/$brand.id/Combinations/$combination.id/Comments')
-                .snapshots()
-                .listen((comments) {
+                .collection('Brands')
+                .doc(brand.id)
+                .collection("Combinations")
+                .doc(combination.id)
+                .collection("Comments")
+                .get()
+                .then((comments) {
+              commentList = [];
               comments.docs.forEach((comment) {
                 commentList.add(
                     Comment(
@@ -71,42 +82,41 @@ class BrandController extends GetxController {
                     id: combination.id,
                     name: combination.data()['name'],
                     brand: combination.data()['brand'],
-                    menuList: combination.data()['menuList'].cast<String>(),
-                    tags: combination.data()['tags'].cast<String>(),
-                    imageUrls: combination.data()['imageUrls'].cast<String>(),
+                    menuList: combination.data()['menuList'].cast<String>().toList(),
+                    tags: combination.data()['tags'].cast<String>().toList(),
+                    imageUrls: combination.data()['imageUrls'].cast<String>().toList(),
                     description: combination.data()['description'],
                     createdDateTime: combination.data()['createdDateTime']
                         .toDate()
                         .toString(),
                     like: combination.data()['like'],
-                    likePerson: combination.data()['likePerson'].cast<String>(),
+                    likePerson: combination.data()['likePerson'].cast<String>().toList(),
                     uid: combination.data()['uid'],
                     maker: combination.data()['maker'],
                     comments: commentList
                 )
             );
+            print("--------brand Combination");
+            print(combinationList[0].name);
+            update();
           });
         });
         brandList.add(
             Brand(
-                name: brand.data()['name'],
-                menuList: menuList,
-                tags: brand.data()['tags'].cast<String>(),
-                imageUrl: brand.data()['imageUrl'],
-                combinations: combinationList,
+              name: brand.data()['name'],
+              menuList: menuList,
+              tags: brand.data()['tags'].cast<String>().toList(),
+              imageUrl: brand.data()['imageUrl'],
+              combinations: combinationList,
             )
         );
+            update();
       });
-      print("--------brand-----------");
-      for(int i = 0 ; i < brandList.length ; i++){
-        print(brandList[i].name);
-        print(brandList[i].menuList[0].name);
-        if(brandList[i].combinations != null){
-          print(brandList[i].combinations[0].name);
-        }
-      }
-      update();
-    });
+          print("--------brand-----------");
+
+        });
+
+
   }
 
   void addCombinationInBrand(Combination combination, String brandId){
@@ -127,9 +137,13 @@ class BrandController extends GetxController {
       'uid': combination.uid,
       'maker': combination.maker,
     }).then((newCombination) {
+      loadBrand();
       combination.id = newCombination.id;
       //uc.addCombinationInUser(combination);
       cbc.addCombination(combination);
+      for(int i = 0 ; i < combination.tags.length ; i++) {
+        tc.addCombinationInTag(combination, combination.tags[i]);
+      }
     });
   }
   void addCommentInBrandInCombination(Comment comment, String brandId, String combinationId){
@@ -147,8 +161,10 @@ class BrandController extends GetxController {
   }
   void selectBrand(int idx){
     _selectedBrand = idx;
+    print(_selectedBrand);
     update();
   }
+
   List<Brand> brandList;
   int _selectedBrand;
   int get selectedBrand => _selectedBrand;

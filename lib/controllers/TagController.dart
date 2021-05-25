@@ -7,16 +7,19 @@ import '../models/Combination.dart';
 import 'dart:async';
 
 class TagController extends GetxController {
-  void loadTag() {
+  TagController(){
+    loadTag();
+  }
+  void loadTag() async{
     print("--------load----------");
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('Tags')
         .snapshots()
         .listen((snapshots){
       tagList = [];
-      snapshots.docs.forEach((tag) {
+      snapshots.docs.forEach((tag) async{
         List<Combination> combinationList = [];
-        FirebaseFirestore.instance
+       await FirebaseFirestore.instance
         .collection('Tags')
         .doc(tag.id)
         .collection('Combinations')
@@ -53,5 +56,24 @@ class TagController extends GetxController {
       update();
     });
   }
-  List<Tag> tagList;
+  void addCombinationInTag(Combination combination, String tag){
+    FirebaseFirestore.instance
+        .collection('Tags')
+        .doc(tag)
+        .collection('Combinations')
+        .add({
+      'name': combination.name,
+      'brand': combination.brand,
+      'menuList': combination.menuList,
+      'tags': combination.tags,
+      'imageUrls': combination.imageUrls,
+      'description': combination.description,
+      'createdDateTime': FieldValue.serverTimestamp(),
+      'like': combination.like,
+      'likePerson': combination.likePerson,
+      'uid': combination.uid,
+      'maker': combination.maker,
+    });
+  }
+  List<Tag> tagList = [];
 }
