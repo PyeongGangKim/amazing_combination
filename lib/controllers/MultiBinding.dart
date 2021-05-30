@@ -2,6 +2,7 @@ import 'package:amazing_combination/controllers/AuthenticationController.dart';
 import 'package:amazing_combination/controllers/BrandController.dart';
 import 'package:amazing_combination/controllers/CombinationController.dart';
 import 'package:amazing_combination/controllers/EditController.dart';
+import 'package:amazing_combination/controllers/LiveController.dart';
 import 'package:amazing_combination/controllers/SearchController.dart';
 import 'package:amazing_combination/controllers/UserController.dart';
 import 'package:amazing_combination/controllers/MenuController.dart';
@@ -20,5 +21,6 @@ class MultiBinding extends Bindings {
     Get.lazyPut<TagController>(() => TagController());
     Get.lazyPut<EditController>(() => EditController());
     Get.lazyPut<SearchController>(() => SearchController());
+    Get.lazyPut<LiveController>(() => LiveController());
   }
 }

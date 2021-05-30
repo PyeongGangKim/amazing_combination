@@ -5,8 +5,8 @@ import 'package:amazing_combination/models/Combination.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CombinationList extends StatelessWidget {
-  const CombinationList({Key key}) : super(key: key);
+class CombinationListSearch extends StatelessWidget {
+  const CombinationListSearch({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

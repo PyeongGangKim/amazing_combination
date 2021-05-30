@@ -3,7 +3,7 @@ import 'package:amazing_combination/controllers/CombinationController.dart';
 import 'package:amazing_combination/controllers/SearchController.dart';
 import 'package:amazing_combination/controllers/SearchController.dart';
 import 'package:amazing_combination/models/Combination.dart';
-import 'package:amazing_combination/widgets/CombinationList.dart';
+import 'package:amazing_combination/widgets/CombinationListSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +11,7 @@ class SearchPage extends StatelessWidget {
   SearchPage({Key key}) : super(key: key);
 
   List<Combination> result = [];
-  Widget combinationList = CombinationList();
+  Widget combinationList = CombinationListSearch();
 
   @override
   Widget build(BuildContext context) {
