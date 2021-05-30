@@ -18,6 +18,7 @@ class CombinationPage extends StatelessWidget {
   static final MenuController mc = Get.find<MenuController>();
   static final UserController uc = Get.find<UserController>();
   static final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,6 +127,7 @@ class CombinationPage extends StatelessWidget {
       }
     }
     Combination newCombination = Combination(
+      brand: curBrand.name,
       name: name,
       description : description,
       tags: tags,

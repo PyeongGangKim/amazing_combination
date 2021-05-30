@@ -1,4 +1,6 @@
 
+import 'package:amazing_combination/CombinationDetail.dart';
+import 'package:amazing_combination/models/Combination.dart';
 import 'package:flutter/material.dart';
 import 'package:amazing_combination/controllers/BrandController.dart';
 import 'package:amazing_combination/controllers/CombinationController.dart';
@@ -23,18 +25,24 @@ class CombinationList extends StatelessWidget {
 
 Widget _combination(BrandController value, int idx) {
   // TODO: Indicate 1st & 2nd most favorite combination
-  var combinationName = value.brandList[value.selectedBrand].combinations[idx].name;
+
+  Combination combination = value.brandList[value.selectedBrand].combinations[idx];
+  String menuList = combination.menuList[0];
+  for(int i = 1; i < combination.menuList.length; ++i) {
+    menuList += ', ' + combination.menuList[i];
+  }
+
   return ListTile(
     leading: Icon(Icons.fastfood),
-    title: Text('$combinationName'),
-    subtitle: Text('menu 1 + menu 2'),
+    title: Text('${combination.name}'),
+    subtitle: Text('$menuList'),
     trailing: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Column(
           children: [
             Icon(Icons.favorite, color: Colors.red,),
-            Text('11'),
+            Text(combination.like.toString()),
           ],
         ),
         Column(
@@ -45,5 +53,9 @@ Widget _combination(BrandController value, int idx) {
         )
       ],
     ),
+    onTap: () {
+      print(combination.name);
+      Get.to(() => CombinationDetailPage(combination: combination));
+    },
   );
 }
