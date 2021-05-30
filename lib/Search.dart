@@ -1,13 +1,24 @@
 
-import 'package:amazing_combination/widgets/combinationList.dart';
+import 'package:amazing_combination/controllers/CombinationController.dart';
+import 'package:amazing_combination/controllers/SearchController.dart';
+import 'package:amazing_combination/controllers/SearchController.dart';
+import 'package:amazing_combination/models/Combination.dart';
+import 'package:amazing_combination/widgets/CombinationList.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SearchPage extends StatelessWidget {
-  const SearchPage({Key key}) : super(key: key);
+  SearchPage({Key key}) : super(key: key);
+
+  List<Combination> result = [];
+  Widget combinationList = CombinationList();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
+
+    TextEditingController textController = TextEditingController();
+    SearchController searchController = Get.find<SearchController>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('검색'),
@@ -22,7 +33,7 @@ class SearchPage extends StatelessWidget {
                     hintText: '찾고싶은 음식을 검색해보세요!'
                   ),
 
-                controller: controller,
+                controller: textController,
                 ),
               ),
               SizedBox(
@@ -30,14 +41,14 @@ class SearchPage extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () {
-                    print(controller.text);
+                    searchController.searchByTag(textController.text);
                   },
                 ),
               )
             ]
           ),
           Expanded(
-              child: CombinationList()
+              child: combinationList
           ),
         ],
       ),

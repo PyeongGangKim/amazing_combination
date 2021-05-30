@@ -2,7 +2,7 @@ import 'package:amazing_combination/controllers/BrandController.dart';
 import 'package:amazing_combination/controllers/CombinationController.dart';
 import 'package:amazing_combination/controllers/MenuController.dart';
 import 'package:amazing_combination/controllers/UserController.dart';
-import 'package:amazing_combination/widgets/combinationList.dart';
+import 'package:amazing_combination/widgets/CombinationListBrand.dart';
 import 'package:amazing_combination/models/Combination.dart';
 
 import 'package:amazing_combination/models/Brand.dart';
@@ -29,7 +29,7 @@ class CombinationPage extends StatelessWidget {
         children: [
           Image.asset('img/yee.PNG'),
           Expanded(
-            child: CombinationList(),
+            child: CombinationListBrand(),
           )
         ],
       ),

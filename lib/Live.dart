@@ -1,5 +1,5 @@
 
-import 'package:amazing_combination/widgets/combinationList.dart';
+import 'package:amazing_combination/widgets/CombinationListBrand.dart';
 import 'package:flutter/material.dart';
 
 class LivePage extends StatelessWidget {
@@ -22,9 +22,9 @@ class LivePage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            CombinationList(),
-            CombinationList(),
-            CombinationList(),
+            CombinationListBrand(),
+            CombinationListBrand(),
+            CombinationListBrand(),
           ],
         ),
       ),

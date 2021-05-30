@@ -6,8 +6,8 @@ import 'package:amazing_combination/controllers/BrandController.dart';
 import 'package:amazing_combination/controllers/CombinationController.dart';
 import 'package:get/get.dart';
 
-class CombinationList extends StatelessWidget {
-  const CombinationList({Key key}) : super(key: key);
+class CombinationListBrand extends StatelessWidget {
+  const CombinationListBrand({Key key}) : super(key: key);
   static final BrandController bc = Get.find<BrandController>();
   static final CombinationController cbc = Get.find<CombinationController>();
 
