@@ -36,9 +36,6 @@ class SearchPage extends StatelessWidget {
               )
             ]
           ),
-          Expanded(
-              child: CombinationList()
-          ),
         ],
       ),
     );

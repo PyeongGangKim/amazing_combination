@@ -22,9 +22,6 @@ class LivePage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            CombinationList(),
-            CombinationList(),
-            CombinationList(),
           ],
         ),
       ),

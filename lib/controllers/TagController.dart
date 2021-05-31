@@ -7,9 +7,12 @@ import '../models/Combination.dart';
 import 'dart:async';
 
 class TagController extends GetxController {
-  TagController(){
+
+  @override
+  void onInit () {
     loadTag();
   }
+
   void loadTag() async{
     print("--------load----------");
     await FirebaseFirestore.instance

@@ -1,44 +1,19 @@
 import 'package:get/get.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/Comment.dart';
+import 'package:amazing_combination/services/database.dart';
 import '../models/Combination.dart';
-import 'dart:async';
+import 'package:amazing_combination/models/Brand.dart';
 
 class CombinationController extends GetxController {
-  CombinationController () {
-    loadCombination();
-  }
-  Future<void> loadCombination() async{
-    print("--------Combination load----------");
-    FirebaseFirestore.instance
-        .collection('Combinations')
-        .snapshots()
-        .listen((snapshots){
-          combinationList = [];
-      snapshots.docs.forEach((combination) {
-        combinationList.add(
-          Combination(
-            id: combination.id,
-            name: combination.data()['name'],
-            brand: combination.data()['brand'],
-            menuList: combination.data()['menuList'].cast<String>(),
-            tags: combination.data()['tags'].cast<String>(),
-            imageUrls: combination.data()['imageUrls'].cast<String>(),
-            description: combination.data()['description'],
-            createdDateTime: combination.data()['createdDateTime'].toDate().toString(),
-            like: combination.data()['like'],
-            likePerson: combination.data()['likePerson'].cast<String>(),
-            uid: combination.data()['uid'],
-            maker: combination.data()['maker'],
-          )
-        );
-       });
-      print("-----combination------");
-      update();
-    });
-    }
+  Brand brand;
+  RxList<Combination> combinationList = RxList<Combination>();
 
+  CombinationController(this.brand);
+  @override
+  void onInit () {
+    combinationList.bindStream(Database().combinationStream(brand.name));
+  }
     void addCombination(Combination combination){
     print("--------add----------");
       FirebaseFirestore.instance
@@ -58,11 +33,6 @@ class CombinationController extends GetxController {
         'maker': combination.maker,
       });
     }
-    void selectCombination(int idx){
-      _selectedCombination = idx;
-      update();
-    }
-    List<Combination> combinationList;
-    int _selectedCombination;
-    int get selectedCombination => _selectedCombination;
+
+
 }
