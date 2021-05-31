@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 class Combination {
   String id;
   String name;
@@ -8,7 +9,7 @@ class Combination {
   List<String> tags;
   List<String> imageUrls;
   String description;
-  String createdDateTime;
+  String createdDateTime; // ??
   int like;
   List<String> likePerson;
   String uid;
@@ -30,7 +31,8 @@ class Combination {
     this.maker,
     //this.comments,
 
-});
+  });
+
   factory Combination.fromFirebase(DocumentSnapshot snapshot) {
     Map data = snapshot.data();
     return Combination(
@@ -39,13 +41,14 @@ class Combination {
       brand: data['brand'],
       menuList: data['menuList'].cast<String>(),
       tags: data['tags'].cast<String>(),
-      imageUrls: data['imageUrls'].cast<String>(),
+      //imageUrls: data['imageUrls'].cast<String>(),
       description: data['description'],
       createdDateTime: data['createdDateTime'].toDate().toString(),
       like: data['like'],
-      likePerson: data['likePerson'].cast<String>(),
+      //likePerson: data['likePerson'].cast<String>(),
       uid: data['uid'],
       maker: data['maker'],
     );
   }
 }
+

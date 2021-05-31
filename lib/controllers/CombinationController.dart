@@ -6,6 +6,7 @@ import '../models/Combination.dart';
 import 'package:amazing_combination/models/Brand.dart';
 
 class CombinationController extends GetxController {
+
   Brand brand;
   RxList<Combination> combinationList = RxList<Combination>();
 

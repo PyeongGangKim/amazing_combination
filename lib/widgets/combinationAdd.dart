@@ -155,6 +155,7 @@ class _CombinationAddState extends State<CombinationAdd> {
       }
     }
     Combination newCombination = Combination(
+      brand:widget.brand.name,
       name: name,
       description : description,
       tags: tags,

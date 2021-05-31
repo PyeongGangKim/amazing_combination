@@ -1,16 +1,20 @@
 
+
 import 'package:amazing_combination/widgets/combinationAdd.dart';
+
+import 'package:amazing_combination/CombinationDetail.dart';
+import 'package:amazing_combination/models/Combination.dart';
+
 import 'package:flutter/material.dart';
 import 'package:amazing_combination/controllers/BrandController.dart';
 import 'package:amazing_combination/controllers/CombinationController.dart';
-import 'package:amazing_combination/models/Combination.dart';
-import 'package:amazing_combination/services/database.dart';
 import 'package:get/get.dart';
 import 'package:amazing_combination/models/Brand.dart';
 
-class CombinationList extends StatelessWidget {
+
+class CombinationListBrand extends StatelessWidget {
   final Brand brand;
-  CombinationList(this.brand);
+  CombinationListBrand(this.brand);
   static final BrandController bc = Get.find<BrandController>();
   static final CombinationController cbc = Get.find<CombinationController>();
 
@@ -46,7 +50,7 @@ Widget _combination(List<Combination> combination, int idx) {
         Column(
           children: [
             Icon(Icons.favorite, color: Colors.red,),
-            Text('11'),
+            Text(combination[idx].like.toString()),
           ],
         ),
         Column(
@@ -57,5 +61,9 @@ Widget _combination(List<Combination> combination, int idx) {
         )
       ],
     ),
+    onTap: () {
+      print(combination[idx].name);
+      Get.to(() => CombinationDetailPage(combination: combination[idx]));
+    },
   );
 }
