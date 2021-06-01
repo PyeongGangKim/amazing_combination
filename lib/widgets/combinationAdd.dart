@@ -5,6 +5,7 @@ import 'package:amazing_combination/controllers/BrandController.dart';
 import 'package:amazing_combination/models/Menu.dart';
 import 'package:amazing_combination/models/Combination.dart';
 import 'package:amazing_combination/models/Brand.dart';
+import 'package:amazing_combination/widgets/MenuList.dart';
 
 class CombinationAdd extends StatefulWidget {
   final Brand brand;
@@ -16,20 +17,18 @@ class CombinationAdd extends StatefulWidget {
 }
 
 class _CombinationAddState extends State<CombinationAdd> {
-  static final BrandController bc = Get.find<BrandController>();
-  List<bool> _isChecked = [false, false];
-  List<int> selectedMenu = [];
+  static final BrandController brandController = Get.find<BrandController>();
   @override
   Widget build(BuildContext context) {
     return  FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
         print("add button");
-        combinationAdd();
+        combinationAddDialog();
       },
     );
   }
-  Widget combinationAdd(){
+  Widget combinationAddDialog(){
     final _formKey = GlobalKey<FormState>();
     TextEditingController nameController = TextEditingController();
     TextEditingController descController = TextEditingController();
@@ -74,7 +73,7 @@ class _CombinationAddState extends State<CombinationAdd> {
                     ),
                     (menuController.menuList.isNotEmpty) ?
                     Container(
-                      child: menuList(menuController.menuList),
+                      child: MenuList(List<bool>.filled(menuController.menuList.length, false)),
                       width: 400,
                       height: 100,
                     ) : Align(child: CircularProgressIndicator()),
@@ -86,7 +85,7 @@ class _CombinationAddState extends State<CombinationAdd> {
                     child: Text('취소'),
                     onPressed: () {
                       Get.back();
-                      selectedMenu.clear();
+                      menuController.selectedMenu.clear();
                     }
                 ),
                 TextButton
@@ -95,13 +94,13 @@ class _CombinationAddState extends State<CombinationAdd> {
                   onPressed: () {
                     print('add new combination');
                     if (!_formKey.currentState.validate() ||
-                        selectedMenu.isEmpty) {
+                        menuController.selectedMenu.isEmpty) {
                       Get.snackbar('Can not', 'Fill Name and Select Menu',
                           snackPosition: SnackPosition.BOTTOM);
                     }
-                    // TODO: add new combination, reload
                     else {
-                      addCombination(nameController.text, descController.text, menuController.menuList);
+                      addCombination(nameController.text, descController.text, menuController.menuList, menuController);
+                      menuController.selectedMenu.clear();
                       Get.back();
                     }
                   },
@@ -113,45 +112,14 @@ class _CombinationAddState extends State<CombinationAdd> {
       }
     );
   }
-  Widget menuList(List<Menu> menus) {
-    /*for(int i = 0 ; i < menus.length ; i++){
-      _isChecked.add(false);
-    }*/
-    return ListView.separated(
-      itemBuilder: ( _, int index) => _menu(menus, index),
-      separatorBuilder: (_, int index) => const Divider(),
-      itemCount: menus.length,
-    );
-  }
-  Widget _menu(List<Menu> menus, int idx){
 
-    return CheckboxListTile(
-      selected: _isChecked[idx],
-      value : _isChecked[idx],
-      title: Text(menus[idx].name),
-      checkColor: Color(0xFFED794E),
-      onChanged: (curState) {
-        setState(() {
-          print("change");
-          print(_isChecked[idx]);
-          _isChecked[idx] = curState;
-        });
-        if (_isChecked[idx]) {
-          selectedMenu.add(idx);
-        }
-        else {
-          selectedMenu.remove(idx);
-        }
-      }
-    );
-  }
-  void addCombination(String name, String description, List<Menu> menus){
+  void addCombination(String name, String description, List<Menu> menus, MenuController menuController){
     List<String> menuList = [];
     List<String> tags = [];
-    for(int i = 0 ; i < selectedMenu.length ; i++){
-      menuList.add(menus[selectedMenu[i]].name);
-      for(int j = 0 ; j < menus[selectedMenu[i]].tags.length ; j++){
-        if(!tags.contains(menus[selectedMenu[i]].tags[j])) tags.add(menus[selectedMenu[i]].tags[j]);
+    for(int i = 0 ; i < menuController.selectedMenu.length ; i++){
+      menuList.add(menus[menuController.selectedMenu[i]].name);
+      for(int j = 0 ; j < menus[menuController.selectedMenu[i]].tags.length ; j++){
+        if(!tags.contains(menus[menuController.selectedMenu[i]].tags[j])) tags.add(menus[menuController.selectedMenu[i]].tags[j]);
       }
     }
     Combination newCombination = Combination(
@@ -166,7 +134,7 @@ class _CombinationAddState extends State<CombinationAdd> {
       likePerson: <String>[],
       imageUrls: <String>[],
     );
-    bc.addCombinationInBrand(newCombination, widget.brand.name);
+    brandController.addCombinationInBrand(newCombination, widget.brand.name);
   }
 
 }

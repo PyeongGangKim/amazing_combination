@@ -10,6 +10,7 @@ import 'dart:async';
 class MenuController extends GetxController {
   final Brand brand;
   RxList<Menu> menuList = RxList<Menu>();
+  RxList<int> selectedMenu = RxList<int>();
   MenuController(this.brand);
   @override
   void onInit() {
