@@ -7,7 +7,6 @@ class Brand {
   List<String> tags;
   double latitude;
   double longitude;
-  String placeId;
 
   Brand({
     this.name,
@@ -15,7 +14,6 @@ class Brand {
     this.tags,
     this.latitude,
     this.longitude,
-    this.placeId,
   });
 
   factory Brand.fromFirebase(DocumentSnapshot snapshot) {
@@ -26,7 +24,6 @@ class Brand {
       tags: data['tags'].cast<String>(),
       latitude: data['location'].latitude as double,
       longitude: data['location'].longitude as double,
-      placeId: data['placeId'],
     );
   }
 }

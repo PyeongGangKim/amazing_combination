@@ -1,7 +1,9 @@
 
 import 'package:amazing_combination/Live.dart';
+import 'package:amazing_combination/Map.dart';
 import 'package:amazing_combination/widgets/CombinationListBrand.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -20,6 +22,12 @@ class HomePage extends StatelessWidget {
           TagButton('피자'),
           TagButton('중식'),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.map),
+        onPressed: () {
+          Get.to(() => MapPage());
+        },
       ),
     );
   }
