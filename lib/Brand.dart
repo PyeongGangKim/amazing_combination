@@ -59,12 +59,14 @@ Widget _Brand(List<Brand> brands, int idx) {
     // leading: Icon(Icons.fastfood),
     title: Text(brands[idx].name  ),
     onTap: () {
-      Get.toNamed(
-          '/combination',
-        arguments: {
-         'brand': brands[idx],
-        }
-      );
+      print(brands[idx].name);
+      Get.to(() => CombinationPage(brand: brands[idx],));
+      // Get.toNamed(
+      //     '/combination',
+      //   arguments: {
+      //    'brand': brands[idx],
+      //   }
+      // );
     },
   );
 }

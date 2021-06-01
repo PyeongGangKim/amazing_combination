@@ -15,17 +15,21 @@ import 'package:amazing_combination/models/Brand.dart';
 class CombinationListBrand extends StatelessWidget {
   final Brand brand;
   CombinationListBrand(this.brand);
-  static final BrandController bc = Get.find<BrandController>();
-  static final CombinationController cbc = Get.find<CombinationController>();
+  // static final BrandController bc = Get.find<BrandController>();
+  // static final CombinationController cbc = Get.find<CombinationController>();
 
   @override
   Widget build(BuildContext context) {
     return GetX<CombinationController>(
         init: Get.put<CombinationController>(CombinationController(brand)),
         builder: (CombinationController combinationController){
-          return (combinationController == null || combinationController.combinationList.isEmpty) ? Align(child: CircularProgressIndicator(),)
-          : ListView.separated(
-              itemBuilder: (context, int index) => _combination(combinationController.combinationList, index),
+          return combinationController == null
+            ? Align(child: CircularProgressIndicator(),)
+              : combinationController.combinationList.isEmpty
+            ? Text('첫번째 조합을 등록하세요!!') :
+
+            ListView.separated(
+              itemBuilder: (context, int index) => _combination(combinationController, index),
               separatorBuilder: (context, int index) => const Divider(),
               itemCount: combinationController.combinationList.length,
           );
@@ -34,23 +38,25 @@ class CombinationListBrand extends StatelessWidget {
   }
 }
 
-Widget _combination(List<Combination> combination, int idx) {
+Widget _combination(CombinationController combinationController, int idx) {
   // TODO: Indicate 1st & 2nd most favorite combination
-  /*String menuList = combination.menuList[0];
+  Combination combination = combinationController.combinationList[idx];
+
+  String menuList = combination.menuList[0];
   for(int i = 1; i < combination.menuList.length; ++i) {
     menuList += ', ' + combination.menuList[i];
-  }*/
+  }
   return ListTile(
     leading: Icon(Icons.fastfood),
-    title: Text(combination[idx].name),
-    subtitle: Text('menu 1 + menu 2'),
+    title: Text(combination.name),
+    subtitle: Text('$menuList'),
     trailing: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Column(
           children: [
             Icon(Icons.favorite, color: Colors.red,),
-            Text(combination[idx].like.toString()),
+            Text(combination.like.toString()),
           ],
         ),
         Column(
@@ -62,8 +68,8 @@ Widget _combination(List<Combination> combination, int idx) {
       ],
     ),
     onTap: () {
-      print(combination[idx].name);
-      Get.to(() => CombinationDetailPage(combination: combination[idx]));
+      print(combination.name);
+      Get.to(() => CombinationDetailPage(combination: combination));
     },
   );
 }

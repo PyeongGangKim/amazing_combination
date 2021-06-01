@@ -1,21 +1,21 @@
 import 'package:amazing_combination/controllers/UserController.dart';
+import 'package:amazing_combination/services/database.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
 
-enum ApplicationLoginState{
-  loggedOut,
-  googleLogin,
-}
-
 class AuthenticationController extends GetxController{
 
-  User _auth;
-  User get auth => _auth;
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
-  ApplicationLoginState _loginState = ApplicationLoginState.loggedOut;
-  ApplicationLoginState get loginState => _loginState;
+  Rx<User> _firebaseUser = Rxn<User>();
+  User get user => _firebaseUser.value;
+
+  @override
+  void onInit() {
+    _firebaseUser.bindStream(_auth.authStateChanges());
+  }
 
   Future<void> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -26,12 +26,11 @@ class AuthenticationController extends GetxController{
       idToken: googleAuth.idToken,
     );
 
-    // Once signed in, return the UserCredential
-    UserCredential userCredential = await FirebaseAuth.instance
-        .signInWithCredential(credential);
-    _auth = userCredential.user;
-    _loginState = ApplicationLoginState.googleLogin;
+    UserCredential userCredential = await _auth.signInWithCredential(credential);
+  }
 
-    update();
+  Future<void> signOut() async {
+    await _auth.signOut();
+    Get.delete<UserController>();
   }
 }

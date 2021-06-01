@@ -3,6 +3,7 @@ import 'package:amazing_combination/Brand.dart';
 import 'package:amazing_combination/Edit.dart';
 import 'package:amazing_combination/Home.dart';
 import 'package:amazing_combination/Live.dart';
+import 'package:amazing_combination/Map.dart';
 import 'package:amazing_combination/MyPage.dart';
 import 'package:amazing_combination/Search.dart';
 import 'package:amazing_combination/Combination.dart';
@@ -36,10 +37,11 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/brand', page: () => BrandPage()),
         GetPage(name: '/live', page: () => LivePage()),
-        GetPage(name: '/combination', page: () => CombinationPage()),
+        // GetPage(name: '/combination', page: () => CombinationPage()),
         GetPage(name: '/search', page: () => SearchPage()),
         GetPage(name: '/mypage', page: () => MyPage()),
         GetPage(name: '/edit', page: () => EditPage()),
+        GetPage(name: '/map', page: () => MapPage()),
       ],
     );
   }
@@ -60,10 +62,10 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   List<Widget> pages = <Widget>[
-    // CombinationPage(),
     BrandPage(),
     LivePage(),
     HomePage(),
+    // MapPage(),
     SearchPage(),
     MyPage(),
   ];
