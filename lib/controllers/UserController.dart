@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:amazing_combination/controllers/AuthenticationController.dart';
+import 'package:amazing_combination/services/database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import '../models/User.dart';
@@ -9,100 +10,86 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
-
 class UserController extends GetxController {
-
   AuthenticationController ac = Get.find<AuthenticationController>();
 
-  final appUser = User().obs;
+  Rx<User> _appUser = User().obs;
+  User get user => _appUser.value;
+  set user(User value) => this._appUser.value = value;
 
-  Future<void> loadUser() async {
-
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(ac.auth.uid)
-        .snapshots()
-        .listen((user){
-        List<Combination> combinationList = [];
-          FirebaseFirestore.instance
-          .collection('Users')
-          .doc(user.id)
-          .collection('Combinations')
-          .snapshots()
-          .listen((combinations) {
-            combinations.docs.forEach((combination) {
-              combinationList.add(
-                  Combination(
-                    id: combination.id,
-                    name: combination.data()['name'],
-                    brand: combination.data()['brand'],
-                    menuList: combination.data()['menuList'].cast<String>(),
-                    tags: combination.data()['tags'].cast<String>(),
-                    imageUrls: combination.data()['imageUrls'].cast<String>(),
-                    description: combination.data()['description'],
-                    createdDateTime: combination.data()['createdDateTime']
-                        .toDate()
-                        .toString(),
-                    like: combination.data()['like'],
-                    likePerson: combination.data()['likePerson'].cast<String>(),
-                    uid: combination.data()['uid'],
-                    maker: combination.data()['maker'],
-                  )
-              );
-            });
-          });
-          appUser.value.id = user.id;
-          appUser.value.combinations = combinationList;
-          appUser.value.nickname = user.data()["nickname"];
-          appUser.value.imageUrl = user.data()["imageUrl"];
-          appUser.value.description = user.data()["description"];
-      update();
-        });
+  @override
+  void onInit() {
+    _appUser.bindStream(Database().userStream(ac.user.uid));
   }
 
-  void identifyUser() {
-    FirebaseFirestore.instance
-      .collection('Users')
-      .doc(ac.auth.uid)
-      .get()
-      .then((value) async {
-        if(value.exists) {
-          await loadUser();
-        }
-        else {
-          await addUser();
-        }
-    });
+  void clear() {
+    _appUser.value = User();
   }
 
-  Future<void> addUser() async {
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(ac.auth.uid).
-        set({
-      'id' : ac.auth.uid,
-      'nickname': ac.auth.displayName,
-      'imageUrl': ac.auth.photoURL,
-      'description': "자신에 대해 알려주세요!",
-    });
-    update();
-  }
-
+  // Future<void> loadUser() async {
+  //   FirebaseFirestore.instance
+  //       .collection('Users')
+  //       .doc('ac.auth.uid')
+  //       .snapshots()
+  //       .listen((user) {
+  //     List<Combination> combinationList = [];
+  //     FirebaseFirestore.instance
+  //         .collection('Users')
+  //         .doc(user.id)
+  //         .collection('Combinations')
+  //         .snapshots()
+  //         .listen((combinations) {
+  //       combinations.docs.forEach((combination) {
+  //         combinationList.add(Combination(
+  //           id: combination.id,
+  //           name: combination.data()['name'],
+  //           brand: combination.data()['brand'],
+  //           menuList: combination.data()['menuList'].cast<String>(),
+  //           tags: combination.data()['tags'].cast<String>(),
+  //           imageUrls: combination.data()['imageUrls'].cast<String>(),
+  //           description: combination.data()['description'],
+  //           createdDateTime:
+  //               combination.data()['createdDateTime'].toDate().toString(),
+  //           like: combination.data()['like'],
+  //           likePerson: combination.data()['likePerson'].cast<String>(),
+  //           uid: combination.data()['uid'],
+  //           maker: combination.data()['maker'],
+  //         ));
+  //       });
+  //     });
+  //     _appUser.value.id = user.id;
+  //     _appUser.value.combinations = combinationList;
+  //     _appUser.value.nickname = user.data()["nickname"];
+  //     _appUser.value.imageUrl = user.data()["imageUrl"];
+  //     _appUser.value.description = user.data()["description"];
+  //     update();
+  //   });
+  // }
+  //
+  // Future<void> addUser() async {
+  //   FirebaseFirestore.instance.collection('Users').doc(ac.auth.uid).set({
+  //     'id': ac.auth.uid,
+  //     'nickname': ac.auth.displayName,
+  //     'imageUrl': ac.auth.photoURL,
+  //     'description': "자신에 대해 알려주세요!",
+  //   });
+  //   update();
+  // }
+  //
   void updateUser(String nickname, String desc, String selectedImage) async {
-
-    if(selectedImage == '') {
+    if (selectedImage == '') {
       FirebaseFirestore.instance
           .collection('Users')
-          .doc(appUser.value.id)
+          .doc(_appUser.value.id)
           .update({
-        'nickname' : nickname,
-        'description' : desc,
+        'nickname': nickname,
+        'description': desc,
       });
-    }
-    else {
-      print('filename: ' + appUser.value.id);
-      String filename = appUser.value.id;
-      Reference reference = FirebaseStorage.instance.ref().child('users/$filename');
+    } else {
+      print('filename: ' + _appUser.value.id);
+      String filename = _appUser.value.id;
+      Reference reference =
+          FirebaseStorage.instance.ref().child('users/$filename');
       await reference.putFile(File(selectedImage));
 
       String imageURL = await reference.getDownloadURL();
@@ -110,35 +97,33 @@ class UserController extends GetxController {
 
       FirebaseFirestore.instance
           .collection('Users')
-          .doc(appUser.value.id)
+          .doc(_appUser.value.id)
           .update({
-        'nickname' : nickname,
-        'imageUrl' : imageURL,
-        'description' : desc,
+        'nickname': nickname,
+        'imageUrl': imageURL,
+        'description': desc,
       });
     }
-
   }
-
-  void addCombinationInUser(Combination combination){
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(appUser.value.id)
-        .collection('Combinations')
-        .doc(combination.id)
-        .set({
-      'name': combination.name,
-      'brand': combination.brand,
-      'menuList': combination.menuList,
-      'tags': combination.tags,
-      'imageUrls': combination.imageUrls,
-      'description': combination.description,
-      'createdDateTime' : combination.createdDateTime,
-      'like': combination.like,
-      'likePerson' : combination.likePerson,
-      'uid': combination.uid,
-      'maker': combination.maker,
-    });
-  }
-
+  //
+  // void addCombinationInUser(Combination combination) {
+  //   FirebaseFirestore.instance
+  //       .collection('Users')
+  //       .doc(_appUser.value.id)
+  //       .collection('Combinations')
+  //       .doc(combination.id)
+  //       .set({
+  //     'name': combination.name,
+  //     'brand': combination.brand,
+  //     'menuList': combination.menuList,
+  //     'tags': combination.tags,
+  //     'imageUrls': combination.imageUrls,
+  //     'description': combination.description,
+  //     'createdDateTime': combination.createdDateTime,
+  //     'like': combination.like,
+  //     'likePerson': combination.likePerson,
+  //     'uid': combination.uid,
+  //     'maker': combination.maker,
+  //   });
+  // }
 }

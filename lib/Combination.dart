@@ -2,6 +2,7 @@ import 'package:amazing_combination/controllers/BrandController.dart';
 import 'package:amazing_combination/controllers/CombinationController.dart';
 import 'package:amazing_combination/controllers/MenuController.dart';
 import 'package:amazing_combination/controllers/UserController.dart';
+import 'package:amazing_combination/models/Brand.dart';
 import 'package:amazing_combination/widgets/CombinationListBrand.dart';
 
 import 'package:flutter/material.dart';
@@ -9,13 +10,13 @@ import 'package:get/get.dart';
 import 'package:amazing_combination/widgets/combinationAdd.dart';
 
 class CombinationPage extends StatelessWidget {
-  const CombinationPage({Key key}) : super(key: key);
-
-  static final brand = Get.arguments['brand'];
+  const CombinationPage({Key key, @required this.brand}) : super(key: key);
+  final Brand brand;
 
 
   @override
   Widget build(BuildContext context) {
+    print('combination page: ' + brand.name);
     return Scaffold(
       appBar: AppBar(
         title: Text('조합'),

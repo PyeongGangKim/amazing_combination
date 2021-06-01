@@ -13,8 +13,6 @@ import 'package:get/get.dart';
 class MultiBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AuthenticationController>(() => AuthenticationController());
-    Get.lazyPut<UserController>(() => UserController());
     Get.lazyPut<BrandController>(() => BrandController());
     Get.lazyPut<TagController>(() => TagController());
     Get.lazyPut<EditController>(() => EditController());

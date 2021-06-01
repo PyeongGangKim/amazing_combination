@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'Combination.dart';
 
 class User {
@@ -14,4 +16,14 @@ class User {
       this.description,
       this.combinations
   });
+
+  factory User.fromFirebase(DocumentSnapshot snapshot) {
+    Map data = snapshot.data();
+    return User(
+      id: data['id'],
+      nickname: data['nickname'],
+      imageUrl: data['imageUrl'],
+      description: data['description']
+    );
+  }
 }

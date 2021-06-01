@@ -102,7 +102,7 @@ class CombinationDetailPage extends StatelessWidget {
 
                     AuthenticationController ac = Get.find<AuthenticationController>();
                     // print(ac.auth.uid);
-                    if(ac.loginState == ApplicationLoginState.loggedOut) {
+                    if(ac.user.uid != null) {
                       print('logout');
                       commentController.clear();
                       Get.back();
@@ -112,7 +112,7 @@ class CombinationDetailPage extends StatelessWidget {
                     else {
                       print('login');
                       Get.find<CommentController>().addComment(
-                          Get.find<AuthenticationController>().auth.uid,
+                        ac.user.uid,
                           commentController.text
                       );
                       commentController.clear();

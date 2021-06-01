@@ -1,20 +1,21 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Brand {
   String name;
-
-  //List<Menu> menuList;
-  //List<Combination> combinations;
   String imageUrl;
   List<String> tags;
+  double latitude;
+  double longitude;
+  String placeId;
 
   Brand({
     this.name,
-    //this.menuList,
-    //this.combinations,
     this.imageUrl,
     this.tags,
+    this.latitude,
+    this.longitude,
+    this.placeId,
   });
 
   factory Brand.fromFirebase(DocumentSnapshot snapshot) {
@@ -23,6 +24,9 @@ class Brand {
       name: data['name'],
       imageUrl: data['imageUrl'],
       tags: data['tags'].cast<String>(),
+      latitude: data['location'].latitude as double,
+      longitude: data['location'].longitude as double,
+      placeId: data['placeId'],
     );
   }
 }
