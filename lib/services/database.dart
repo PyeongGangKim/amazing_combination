@@ -17,6 +17,7 @@ class Database {
         .collection("Brands")
         .doc(brandName)
         .collection("Combinations")
+        .orderBy("like", descending: true)
         .snapshots()
         .map((combinations) => combinations.docs.map((combination) => Combination.fromFirebase(combination)).toList());
   }

@@ -59,6 +59,7 @@ class TagController extends GetxController {
       update();
     });
   }
+
   void addCombinationInTag(Combination combination, String tag){
     FirebaseFirestore.instance
         .collection('Tags')
