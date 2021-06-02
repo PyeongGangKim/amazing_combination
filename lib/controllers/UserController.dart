@@ -19,13 +19,18 @@ class UserController extends GetxController {
 
   @override
   void onInit() {
+    if(!ac.user.isBlank){
     _appUser.bindStream(Database().userStream(ac.user.uid));
+    }
   }
 
   void clear() {
     _appUser.value = User();
   }
-
+  bool isUserNull(){
+    if(_appUser.value.isBlank) return true;
+    else return false;
+  }
   // Future<void> loadUser() async {
   //   FirebaseFirestore.instance
   //       .collection('Users')

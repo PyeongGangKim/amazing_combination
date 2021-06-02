@@ -41,10 +41,12 @@ class CombinationListBrand extends StatelessWidget {
 Widget _combination(CombinationController combinationController, int idx) {
   // TODO: Indicate 1st & 2nd most favorite combination
   Combination combination = combinationController.combinationList[idx];
-
-  String menuList = combination.menuList[0];
-  for(int i = 1; i < combination.menuList.length; ++i) {
-    menuList += ', ' + combination.menuList[i];
+  String menuList = "";
+  if(combination.menuList.isNotEmpty) {
+    menuList = combination.menuList[0];
+    for (int i = 1; i < combination.menuList.length; ++i) {
+      menuList += ', ' + combination.menuList[i];
+    }
   }
   return ListTile(
     leading: Icon(Icons.fastfood),

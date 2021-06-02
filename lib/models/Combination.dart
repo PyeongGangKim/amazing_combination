@@ -41,11 +41,11 @@ class Combination {
       brand: data['brand'],
       menuList: data['menuList'].cast<String>(),
       tags: data['tags'].cast<String>(),
-      //imageUrls: data['imageUrls'].cast<String>(),
+      imageUrls: data['imageUrls'].cast<String>(),
       description: data['description'],
       createdDateTime: data['createdDateTime'].toDate().toString(),
       like: data['like'],
-      //likePerson: data['likePerson'].cast<String>(),
+      likePerson: data['likePerson'].cast<String>(),
       uid: data['uid'],
       maker: data['maker'],
     );

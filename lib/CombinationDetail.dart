@@ -4,6 +4,8 @@ import 'package:amazing_combination/controllers/CommentController.dart';
 import 'package:amazing_combination/models/Combination.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+
 
 class CombinationDetailPage extends StatelessWidget {
   final Combination combination;
@@ -20,16 +22,32 @@ class CombinationDetailPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Image.asset('img/yee.PNG'),
+          (combination.imageUrls.isNotEmpty) ?
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 350,
+            child: Swiper(
+              itemBuilder: (BuildContext context,int idx){
+                return Image.network(combination.imageUrls[idx],fit: BoxFit.fill,);
+              },
+              itemCount: combination.imageUrls.length,
+              pagination: new SwiperPagination(),
+              control: new SwiperControl(),
+            )
+          ) : Container(),
+          Container(
+              alignment: Alignment.topRight,
+              child: Column(
+                children: [
+                  Icon(Icons.favorite, color: Colors.red,),
+                  Text(combination.like.toString()),
+                ],
+              )
+          ),
           Text(combination.name + ' by ' + combination.maker),
           Text(combination.brand),
           Text('메뉴: ' + menuList),
-          Column(
-            children: [
-              Icon(Icons.favorite, color: Colors.red,),
-              Text(combination.like.toString()),
-            ],
-          ),
+
           Text('Comments'),
           GetX<CommentController>(
             init: Get.put<CommentController>(CommentController(combination)),

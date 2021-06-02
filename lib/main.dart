@@ -3,7 +3,7 @@ import 'package:amazing_combination/Brand.dart';
 import 'package:amazing_combination/Edit.dart';
 import 'package:amazing_combination/Home.dart';
 import 'package:amazing_combination/Live.dart';
-import 'package:amazing_combination/Map.dart';
+//import 'package:amazing_combination/Map.dart';
 import 'package:amazing_combination/MyPage.dart';
 import 'package:amazing_combination/Search.dart';
 import 'package:amazing_combination/Combination.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/search', page: () => SearchPage()),
         GetPage(name: '/mypage', page: () => MyPage()),
         GetPage(name: '/edit', page: () => EditPage()),
-        GetPage(name: '/map', page: () => MapPage()),
+        //GetPage(name: '/map', page: () => MapPage()),
       ],
     );
   }
