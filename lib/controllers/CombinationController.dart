@@ -18,8 +18,8 @@ class CombinationController extends GetxController {
     combinationList.bindStream(Database().combinationStream(brand.name));
 
   }
-    void addCombination(Combination combination){
-      FirebaseFirestore.instance
+    void addCombination(Combination combination) async {
+      await FirebaseFirestore.instance
           .collection('Combinations')
           .doc(combination.id)
           .set({

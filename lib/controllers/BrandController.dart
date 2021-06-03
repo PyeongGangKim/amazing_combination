@@ -26,8 +26,8 @@ class BrandController extends GetxController {
       brandList.bindStream(Database().brandStream());
   }
 
-  void addCombinationInBrand(Combination combination, String brandId){
-    FirebaseFirestore.instance
+  void addCombinationInBrand(Combination combination, String brandId) async {
+    await FirebaseFirestore.instance
         .collection('Brands')
         .doc(brandId)
         .collection('Combinations')
@@ -43,12 +43,12 @@ class BrandController extends GetxController {
       'likePerson': combination.likePerson,
       'uid': combination.uid,
       'maker': combination.maker,
-    }).then((newCombination) {
+    }).then((newCombination) async {
       combination.id = newCombination.id;
-      //uc.addCombinationInUser(combination);
+      Get.find<UserController>().addCombinationInUser(combination);
       Get.find<CombinationController>().addCombination(combination);
       for(int i = 0 ; i < combination.tags.length ; i++) {
-        Get.find<TagController>().addCombinationInTag(combination, combination.tags[i]);
+         await Get.find<TagController>().addCombinationInTag(combination, combination.tags[i]);
       }
     });
   }

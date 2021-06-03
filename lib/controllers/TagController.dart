@@ -61,8 +61,8 @@ class TagController extends GetxController {
     });
   }
 
-  void addCombinationInTag(Combination combination, String tag){
-    FirebaseFirestore.instance
+  void addCombinationInTag(Combination combination, String tag) async {
+    await FirebaseFirestore.instance
         .collection('Tags')
         .doc(tag)
         .collection('Combinations')

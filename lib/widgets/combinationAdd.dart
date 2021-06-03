@@ -175,7 +175,6 @@ class _CombinationAddState extends State<CombinationAdd> {
   Future<void> imageUploadToStorage(String name) async {
     if (imageList.isNotEmpty) {
       for (int i = 0; i < imageList.length; i++) {
-        print(imageList.length.toString());
         var path =
             await FlutterAbsolutePath.getAbsolutePath(imageList[i].identifier);
         var file = await getImageFileFromAsset(path);
@@ -186,7 +185,6 @@ class _CombinationAddState extends State<CombinationAdd> {
             .child("${imageName}");
 
         UploadTask storageUploadTask = storageReference.putFile(file);
-        print(imageName);
         imageUrls.add(await (await storageUploadTask).ref.getDownloadURL());
       }
     }
@@ -222,6 +220,6 @@ class _CombinationAddState extends State<CombinationAdd> {
       likePerson: <String>[],
       imageUrls: imageUrls,
     );
-    brandController.addCombinationInBrand(newCombination, widget.brand.name);
+    await brandController.addCombinationInBrand(newCombination, widget.brand.name);
   }
 }
