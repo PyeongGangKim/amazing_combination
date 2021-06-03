@@ -49,70 +49,117 @@ class _CombinationDetailState extends State<CombinationDetailPage> {
                 control: new SwiperControl(),
               )
           ) : Container(),
-          Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              alignment: Alignment.topRight,
-              child: Column(
-                children: [
-                  (!Get.isRegistered<UserController>()) ?
-                  IconButton(
-                    icon : Icon(
-                      Icons.favorite_border,
+          Row(
+            children: [
+              SizedBox( width: 15,),
+              Expanded(
+                  child: Text(
+                    widget.combination.name,
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700
                     ),
-                    iconSize: 30,
-                    onPressed: (){
-                      Get.snackbar("Login 필요", "Login이 필요한 서비스 입니다.");
-                    },
-                  ) :
-                  GetX<TagController>
-                    (
-                      init: Get.put<TagController>(TagController()),
-                      builder: (TagController tagController){
-                        return IconButton(
-                          icon : (likePerson.contains(userController.user.id)) ? Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                          ) : Icon(Icons.favorite_border),
-                          iconSize: 30,
-                          onPressed: (){
-                            if(likePerson.contains(userController.user.id)){
-                              widget.combination.likePerson.remove(userController.user.id);
-                              widget.combination.like--;
-                              setState(() {
-                                like = widget.combination.like;
-                                likePerson = widget.combination.likePerson;
-                              });
-                              Get.find<CombinationController>().updateLike(widget.combination);
-                            }
-                            else{
-                              widget.combination.likePerson.add(userController.user.id);
-                              widget.combination.like++;
-                              setState(() {
-                                like = widget.combination.like;
-                                likePerson = widget.combination.likePerson;
-                              });
-                              Get.find<CombinationController>().updateLike(widget.combination);
-                            }
-                          },
-                        );
-                      }
-                  ),
-                  Text(like.toString()),
-                ],
-              )
+                  )
+              ),
+
+              Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  alignment: Alignment.topRight,
+                  child: Column(
+                    children: [
+                      (!Get.isRegistered<UserController>()) ?
+                      IconButton(
+                        icon : Icon(
+                          Icons.favorite_border,
+                        ),
+                        iconSize: 30,
+                        onPressed: (){
+                          Get.snackbar("Login 필요", "Login이 필요한 서비스 입니다.");
+                        },
+                      ) :
+                      GetX<TagController>
+                        (
+                          init: Get.put<TagController>(TagController()),
+                          builder: (TagController tagController){
+                            return IconButton(
+                              icon : (likePerson.contains(userController.user.id)) ? Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              ) : Icon(Icons.favorite_border),
+                              iconSize: 30,
+                              onPressed: (){
+                                if(likePerson.contains(userController.user.id)){
+                                  widget.combination.likePerson.remove(userController.user.id);
+                                  widget.combination.like--;
+                                  setState(() {
+                                    like = widget.combination.like;
+                                    likePerson = widget.combination.likePerson;
+                                  });
+                                  Get.find<CombinationController>().updateLike(widget.combination);
+                                }
+                                else{
+                                  widget.combination.likePerson.add(userController.user.id);
+                                  widget.combination.like++;
+                                  setState(() {
+                                    like = widget.combination.like;
+                                    likePerson = widget.combination.likePerson;
+                                  });
+                                  Get.find<CombinationController>().updateLike(widget.combination);
+                                }
+                              },
+                            );
+                          }
+                      ),
+                      Text(like.toString()),
+                    ],
+                  )
+              ),
+            ],
           ),
-          Text(widget.combination.name + ' by ' + widget.combination.maker),
-          Text(widget.combination.brand),
+
+          Container(
+            padding: EdgeInsets.only(left: 15),
+            alignment: Alignment.topLeft,
+            child: Text("combination maker: " + widget.combination.maker),
+          ),
+          SizedBox(height: 20,),
           Padding(
             padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
             child:Row(
               children: [
                 Padding(
                   padding : EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  child: Icon(Icons.restaurant_menu),
+                  child: Icon(
+                    Icons.restaurant,
+                    size: 30,
+                  ),
                 ),
-
-                Text('메뉴: ' + menuList),
+                Text(
+                  "brand: " + widget.combination.brand,
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 5, 0, 5),
+            child:Row(
+              children: [
+                Padding(
+                  padding : EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  child: Icon(
+                      Icons.menu_book,
+                    size: 30,
+                  ),
+                ),
+                Text(
+                    'Menu: ' + menuList,
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
               ],
             ),
           ),
@@ -122,9 +169,17 @@ class _CombinationDetailState extends State<CombinationDetailPage> {
               children: [
                 Padding(
                   padding : EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  child: Icon(Icons.comment),
+                  child: Icon(
+                      Icons.comment,
+                    size: 30,
+                  ),
                 ),
-                Text('Comments'),
+                Text(
+                    'Comments',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
               ],
             ),
           ),
