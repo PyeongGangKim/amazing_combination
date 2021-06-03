@@ -26,11 +26,6 @@ class BrandPage extends StatelessWidget {
         ),
         body: TabBarView(
           children: bc.brandTabs,
-          // children: [
-          //   BrandList(),
-          //   BrandList(),
-          //   BrandList(),
-          // ],
         ),
       ),
     );
@@ -39,7 +34,6 @@ class BrandPage extends StatelessWidget {
 
 Widget BrandList() {
   return GetX<BrandController>(
-      //init: Get.put<BrandController>(BrandController()),
       builder: (BrandController brandController){
     return (brandController == null || brandController.brandList.isEmpty) ?
     Align(child: CircularProgressIndicator())
@@ -61,12 +55,6 @@ Widget _Brand(List<Brand> brands, int idx) {
     onTap: () {
       print(brands[idx].name);
       Get.to(() => CombinationPage(brand: brands[idx],));
-      // Get.toNamed(
-      //     '/combination',
-      //   arguments: {
-      //    'brand': brands[idx],
-      //   }
-      // );
     },
   );
 }

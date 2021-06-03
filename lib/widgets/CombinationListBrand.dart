@@ -15,8 +15,6 @@ import 'package:amazing_combination/models/Brand.dart';
 class CombinationListBrand extends StatelessWidget {
   final Brand brand;
   CombinationListBrand(this.brand);
-  // static final BrandController bc = Get.find<BrandController>();
-  // static final CombinationController cbc = Get.find<CombinationController>();
 
   @override
   Widget build(BuildContext context) {

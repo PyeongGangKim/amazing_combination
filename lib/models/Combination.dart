@@ -35,7 +35,6 @@ class Combination {
 
   factory Combination.fromFirebase(DocumentSnapshot snapshot) {
     Map data = snapshot.data();
-    print(data['name']);
     return Combination(
       id: snapshot.id,
       name: data['name'],
@@ -44,7 +43,7 @@ class Combination {
       tags: data['tags'].cast<String>(),
       imageUrls: data['imageUrls'].cast<String>(),
       description: data['description'],
-      //createdDateTime: data['createdDateTime'].toDate().toString(),
+      createdDateTime: data['createdDateTime'].toDate().toString(),
       like: data['like'],
       likePerson: data['likePerson'].cast<String>(),
       uid: data['uid'],

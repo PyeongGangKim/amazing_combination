@@ -6,7 +6,6 @@ import 'package:amazing_combination/Live.dart';
 //import 'package:amazing_combination/Map.dart';
 import 'package:amazing_combination/MyPage.dart';
 import 'package:amazing_combination/Search.dart';
-import 'package:amazing_combination/Combination.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +22,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -37,7 +35,6 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/brand', page: () => BrandPage()),
         GetPage(name: '/live', page: () => LivePage()),
-        // GetPage(name: '/combination', page: () => CombinationPage()),
         GetPage(name: '/search', page: () => SearchPage()),
         GetPage(name: '/mypage', page: () => MyPage()),
         GetPage(name: '/edit', page: () => EditPage()),
@@ -65,7 +62,6 @@ class _MainPageState extends State<MainPage> {
     BrandPage(),
     LivePage(),
     HomePage(),
-    // MapPage(),
     SearchPage(),
     MyPage(),
   ];

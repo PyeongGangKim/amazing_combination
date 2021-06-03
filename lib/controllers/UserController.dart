@@ -78,7 +78,7 @@ class UserController extends GetxController {
        'tags': combination.tags,
        'imageUrls': combination.imageUrls,
        'description': combination.description,
-       'createdDateTime': combination.createdDateTime,
+       'createdDateTime': FieldValue.serverTimestamp(),
        'like': combination.like,
        'likePerson': combination.likePerson,
        'uid': combination.uid,
