@@ -32,8 +32,8 @@ class Database {
         .orderBy("like", descending: true)
         .snapshots()
         .map((combinations) => combinations.docs
-        .map((combination) => Combination.fromFirebase(combination))
-        .toList());
+          .map((combination) => Combination.fromFirebase(combination))
+          .toList());
   }
 
   Stream<List<Menu>> menuStream(String brandName) {

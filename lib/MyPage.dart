@@ -2,6 +2,7 @@ import 'package:amazing_combination/Edit.dart';
 import 'package:amazing_combination/controllers/AuthenticationController.dart';
 import 'package:amazing_combination/controllers/UserController.dart';
 import 'package:flutter/material.dart';
+import 'package:amazing_combination/widgets/CombinationListMyPage.dart';
 import 'package:get/get.dart';
 
 class MyPage extends StatelessWidget {
@@ -103,8 +104,8 @@ class MyPage extends StatelessWidget {
                                 ),
                               ),
                               Text('내가 쓴 조합'),
-                              // TODO: User's list of combinations
-                              // Combinations liked?
+                              CombinationListMyPage(userId: userController.user.id,)
+
                             ],
                           );
                   });
