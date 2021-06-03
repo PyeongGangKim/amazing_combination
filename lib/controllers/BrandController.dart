@@ -65,6 +65,17 @@ class BrandController extends GetxController {
       'created_date_time' : FieldValue.serverTimestamp()
     });
   }
+  void updateLike(Combination combination){
+      FirebaseFirestore.instance
+          .collection('Brands')
+          .doc(combination.brand)
+          .collection('Combinations')
+          .doc(combination.id)
+          .update({
+        'like' : combination.like,
+        'likePerson' : combination.likePerson,
+      });
+  }
   void selectBrand(int idx){
     _selectedBrand = idx;
     print(_selectedBrand);

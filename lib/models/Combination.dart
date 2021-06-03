@@ -34,6 +34,7 @@ class Combination {
   });
 
   factory Combination.fromFirebase(DocumentSnapshot snapshot) {
+
     Map data = snapshot.data();
     return Combination(
       id: snapshot.id,

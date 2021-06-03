@@ -9,6 +9,7 @@ import 'dart:async';
 class TagController extends GetxController {
 
   @override
+  List<Tag> tagList = [];
   void onInit () {
     loadTag();
   }
@@ -80,5 +81,16 @@ class TagController extends GetxController {
       'maker': combination.maker,
     });
   }
-  List<Tag> tagList = [];
+  void updateLike(Combination combination){
+    FirebaseFirestore.instance
+        .collection('Brands')
+        .doc(combination.brand)
+        .collection('Combinations')
+        .doc(combination.id)
+        .update({
+      'like' : combination.like,
+      'likePerson' : combination.likePerson,
+    });
+  }
+
 }
