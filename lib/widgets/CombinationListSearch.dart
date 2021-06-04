@@ -32,7 +32,7 @@ Widget _combination(SearchController searchController, int idx) {
   }
 
   return ListTile(
-    leading: Icon(Icons.fastfood),
+    leading: combination.imageUrls.length == 0 ? Icon(Icons.fastfood) : Image.network(combination.imageUrls[0]),
     title: Text('${combination.name}'),
     subtitle: Text('$menuList'),
     trailing: Row(

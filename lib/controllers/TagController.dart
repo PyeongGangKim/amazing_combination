@@ -40,7 +40,6 @@ class TagController extends GetxController {
                   imageUrls: combination.data()['imageUrls'].cast<String>(),
                   description: combination.data()['description'],
                   createdDateTime: combination.data()['createdDateTime']
-                      .toDate()
                       .toString(),
                   like: combination.data()['like'],
                   likePerson: combination.data()['likePerson'].cast<String>(),
