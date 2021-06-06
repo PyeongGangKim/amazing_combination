@@ -1,12 +1,9 @@
-
 import 'package:amazing_combination/Brand.dart';
 import 'package:amazing_combination/Edit.dart';
 import 'package:amazing_combination/Home.dart';
 import 'package:amazing_combination/Live.dart';
-//import 'package:amazing_combination/Map.dart';
 import 'package:amazing_combination/MyPage.dart';
 import 'package:amazing_combination/Search.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controllers/MultiBinding.dart';
@@ -14,9 +11,8 @@ import 'constants/firebase.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initialization.then((value){
+  await initialization.then((value) {
     MultiBinding().dependencies();
-
   });
   runApp(MyApp());
 }
@@ -44,9 +40,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
-
 class MainPage extends StatefulWidget {
   const MainPage({Key key}) : super(key: key);
 
@@ -55,11 +48,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
   int _selectedIndex = 0;
 
   List<Widget> pages = <Widget>[
-    BrandPage(),
+    // BrandPage(),
     LivePage(),
     HomePage(),
     SearchPage(),
@@ -88,39 +80,17 @@ class _MainPageState extends State<MainPage> {
       unselectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
       selectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
       items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: '브랜드'
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.whatshot),
-            label: '실시간'
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '홈'
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: '검색'
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '마이페이지'
-        ),
+        // BottomNavigationBarItem(
+        //     icon: Icon(Icons.favorite),
+        //     label: '브랜드'
+        // ),
+        BottomNavigationBarItem(icon: Icon(Icons.whatshot), label: '실시간'),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
+        BottomNavigationBarItem(icon: Icon(Icons.search), label: '검색'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: '마이페이지'),
       ],
       currentIndex: _selectedIndex,
       onTap: _onTap,
     );
   }
 }
-
-
-
-
-
-
-
-
-
-

@@ -44,7 +44,9 @@ class BrandCarousel extends StatelessWidget {
           padding: const EdgeInsets.only(top: 10),
           child: SizedBox(
             height: 90,
-            child: BrandCarouselList(mapController: mapController,),
+            child: BrandCarouselList(
+              mapController: mapController,
+            ),
           ),
         ));
   }
@@ -126,9 +128,7 @@ class _StoreListTileState extends State<StoreListTile> {
 }
 
 class BrandMap extends StatelessWidget {
-  const BrandMap(
-      {Key key, @required this.mapController})
-      : super(key: key);
+  const BrandMap({Key key, @required this.mapController}) : super(key: key);
   final Completer<GoogleMapController> mapController;
 
   @override

@@ -12,6 +12,15 @@ class Database {
         brands.docs.map((brand) => Brand.fromFirebase(brand)).toList());
   }
 
+  Stream<List<Brand>> brandTagStream(String tag) {
+    return _firestore
+        .collection("Brands")
+        .where('tags', arrayContains: tag)
+        .snapshots()
+        .map((brands) =>
+            brands.docs.map((brand) => Brand.fromFirebase(brand)).toList());
+  }
+
   Stream<List<Combination>> combinationStream(String brandName) {
     return _firestore
         .collection("Brands")
@@ -32,8 +41,8 @@ class Database {
         .orderBy("like", descending: true)
         .snapshots()
         .map((combinations) => combinations.docs
-          .map((combination) => Combination.fromFirebase(combination))
-          .toList());
+            .map((combination) => Combination.fromFirebase(combination))
+            .toList());
   }
 
   Stream<List<Menu>> menuStream(String brandName) {
@@ -45,6 +54,7 @@ class Database {
         .map((menus) =>
             menus.docs.map((menu) => Menu.fromFirebase(menu)).toList());
   }
+
   Stream<User> userStream(String uid) {
     return FirebaseFirestore.instance
         .collection('Users')

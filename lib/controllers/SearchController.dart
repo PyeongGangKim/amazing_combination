@@ -6,7 +6,6 @@ class SearchController extends GetxController {
   RxList<Combination> combinations = RxList<Combination>();
 
   Future<void> searchByTag(String tag) {
-
     combinations.bindStream(FirebaseFirestore.instance
         .collection('Combinations')
         .where('tags', arrayContains: tag)
