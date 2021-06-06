@@ -1,4 +1,5 @@
 import 'package:amazing_combination/CombinationDetail.dart';
+import 'package:amazing_combination/controllers/CombinationController.dart';
 
 import 'package:amazing_combination/controllers/UserCombinationController.dart';
 import 'package:amazing_combination/models/Combination.dart';
@@ -12,7 +13,7 @@ class CombinationListMyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("userId" + userId);
+    // print("userId" + userId);
     return GetX<UserCombinationController>(
         init: Get.put(UserCombinationController(userId)),
         builder: (UserCombinationController userCombinationController) {
@@ -41,7 +42,16 @@ Widget _combination(List<Combination> combinations, int idx) {
   }
 
   return ListTile(
-    leading: combination.imageUrls.length == 0 ? Icon(Icons.fastfood) : Image.network(combination.imageUrls[0]),
+    leading: combination.imageUrls.length == 0
+        ? Icon(Icons.fastfood)
+        : Container(
+            width: 80,
+            height: 50,
+            child: Image.network(
+              combination.imageUrls[0],
+              fit: BoxFit.fill,
+            ),
+          ),
     title: Text('${combination.name}'),
     subtitle: Text('$menuList'),
     trailing: Row(
@@ -58,15 +68,17 @@ Widget _combination(List<Combination> combinations, int idx) {
         ),
         Column(
           children: [
-            Icon(Icons.star, color: Colors.yellow),
-            Text('22'),
+            Icon(Icons.comment, color: Colors.yellow),
+            Text(combination.numOfComments.toString()),
           ],
         )
       ],
     ),
     onTap: () {
       print(combination.name);
-      Get.to(() => CombinationDetailPage(combination: combination));
+      Get.to(() => CombinationDetailPage(
+            combinationId: combination.id,
+          ));
     },
   );
 }

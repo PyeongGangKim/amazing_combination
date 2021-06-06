@@ -33,7 +33,9 @@ class _CombinationAddState extends State<CombinationAdd> {
       child: Icon(Icons.add),
       onPressed: () {
         if (!Get.isRegistered<UserController>()) {
-          Get.snackbar("Login 필요", "Login이 필요한 서비스 입니다.");
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('로그인이 필요한 서비스입니다.'),
+          ));
         } else {
           combinationAddDialog();
         }
@@ -178,7 +180,7 @@ class _CombinationAddState extends State<CombinationAdd> {
         var path =
             await FlutterAbsolutePath.getAbsolutePath(imageList[i].identifier);
         var file = await getImageFileFromAsset(path);
-        String imageName = name +"_" + i.toString();
+        String imageName = name + "_" + i.toString();
         Reference storageReference = FirebaseStorage.instance
             .ref()
             .child("combinations")
@@ -197,16 +199,15 @@ class _CombinationAddState extends State<CombinationAdd> {
     List<String> menuList = [];
     List<String> tags = [];
     for (int i = 0; i < menuController.selectedMenu.length; i++) {
-      if(!menuList.contains(menus[menuController.selectedMenu[i]].name)){
+      if (!menuList.contains(menus[menuController.selectedMenu[i]].name)) {
         menuList.add(menus[menuController.selectedMenu[i]].name);
         for (int j = 0;
-        j < menus[menuController.selectedMenu[i]].tags.length;
-        j++) {
+            j < menus[menuController.selectedMenu[i]].tags.length;
+            j++) {
           if (!tags.contains(menus[menuController.selectedMenu[i]].tags[j]))
             tags.add(menus[menuController.selectedMenu[i]].tags[j]);
         }
       }
-
     }
     Combination newCombination = Combination(
       brand: widget.brand.name,
@@ -220,6 +221,7 @@ class _CombinationAddState extends State<CombinationAdd> {
       likePerson: <String>[],
       imageUrls: imageUrls,
     );
-    await brandController.addCombinationInBrand(newCombination, widget.brand.name);
+    await brandController.addCombinationInBrand(
+        newCombination, widget.brand.name);
   }
 }

@@ -39,6 +39,7 @@ dependencies:
   google_maps_flutter: ^2.0.1
   google_maps_webservice: ^0.0.20-nullsafety.0
   location: ^4.0.0-nullsafety.0
+  flutter_icons: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: BMJUA
+      fonts:
+        - asset: img/BMJUA.ttf
+          weight: 600
   # fonts:
   #   - family: Schyler
   #     fonts:

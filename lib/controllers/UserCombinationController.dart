@@ -15,7 +15,26 @@ class UserCombinationController extends GetxController {
     combinations.bindStream(Database().userCombinationStream(userId));
   }
 
+  void updateLike(Combination combination) {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userId)
+        .collection('Combinations')
+        .doc(combination.id)
+        .update({
+      'like': combination.like,
+      'likePerson': combination.likePerson,
+    });
+  }
 
-
-
+  void updateComment(Combination combination) {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userId)
+        .collection('Combinations')
+        .doc(combination.id)
+        .update({
+      'numOfComments': combination.numOfComments
+    });
+  }
 }

@@ -27,12 +27,12 @@ class HomePage extends StatelessWidget {
           TagButton('야식', 8, context),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.map),
-        onPressed: () {
-          Get.to(() => MapPage());
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.map),
+      //   onPressed: () {
+      //     Get.to(() => MapPage());
+      //   },
+      // ),
     );
   }
 }
@@ -44,6 +44,7 @@ Widget TagButton(String tag, int idx, BuildContext context) {
       IconButton(
         iconSize: 80,
         icon: Icon(Icons.fastfood),
+        // icon: Image.asset('img/sushi.svg'),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => BrandPage(initialIndex: idx)));

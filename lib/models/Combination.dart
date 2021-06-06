@@ -14,7 +14,7 @@ class Combination {
   List<String> likePerson;
   String uid;
   String maker;
-  //List<Comment> comments;
+  int numOfComments;
 
   Combination({
     this.id,
@@ -29,8 +29,7 @@ class Combination {
     this.likePerson,
     this.uid,
     this.maker,
-    //this.comments,
-
+    this.numOfComments
   });
 
   factory Combination.fromFirebase(DocumentSnapshot snapshot) {
@@ -48,6 +47,7 @@ class Combination {
       likePerson: data['likePerson'].cast<String>(),
       uid: data['uid'],
       maker: data['maker'],
+      numOfComments: data['numOfComments'],
     );
   }
 }

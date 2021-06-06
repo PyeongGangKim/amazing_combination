@@ -1,4 +1,4 @@
-import 'package:amazing_combination/controllers/TagController.dart';
+
 import 'package:amazing_combination/Brand.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +6,7 @@ import '../models/Brand.dart';
 import '../models/Comment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/Combination.dart';
-import 'CombinationController.dart';
+import 'CombinationsByBrandController.dart';
 import 'UserController.dart';
 import 'package:amazing_combination/services/database.dart';
 
@@ -69,14 +69,11 @@ class BrandController extends GetxController {
       'likePerson': combination.likePerson,
       'uid': combination.uid,
       'maker': combination.maker,
+      'numOfComments': 0,
     }).then((newCombination) async {
       combination.id = newCombination.id;
       Get.find<UserController>().addCombinationInUser(combination);
-      Get.find<CombinationController>().addCombination(combination);
-      for (int i = 0; i < combination.tags.length; i++) {
-        await Get.find<TagController>()
-            .addCombinationInTag(combination, combination.tags[i]);
-      }
+      Get.find<CombinationsByBrandController>().addCombination(combination);
     });
   }
 
@@ -105,6 +102,15 @@ class BrandController extends GetxController {
       'like': combination.like,
       'likePerson': combination.likePerson,
     });
+  }
+
+  void updateComment(Combination combination) {
+    FirebaseFirestore.instance
+        .collection('Brands')
+        .doc(combination.brand)
+        .collection('Combinations')
+        .doc(combination.id)
+        .update({'numOfComments': combination.numOfComments});
   }
 
   void selectBrand(int idx) {

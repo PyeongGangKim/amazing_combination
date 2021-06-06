@@ -11,6 +11,7 @@ class BrandPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BrandController bc = Get.find<BrandController>();
+
     return DefaultTabController(
       initialIndex: initialIndex,
       length: 9,

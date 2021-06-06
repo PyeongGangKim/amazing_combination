@@ -1,5 +1,5 @@
 
-import 'package:amazing_combination/controllers/CombinationController.dart';
+import 'package:amazing_combination/controllers/CombinationsByBrandController.dart';
 import 'package:amazing_combination/controllers/SearchController.dart';
 import 'package:amazing_combination/controllers/SearchController.dart';
 import 'package:amazing_combination/models/Combination.dart';

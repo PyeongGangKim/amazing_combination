@@ -1,50 +1,39 @@
+
 import 'package:amazing_combination/controllers/BrandController.dart';
-import 'package:amazing_combination/controllers/TagController.dart';
+import 'package:amazing_combination/controllers/UserCombinationController.dart';
+import 'package:amazing_combination/models/Combination.dart';
+import 'package:amazing_combination/services/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:amazing_combination/services/database.dart';
-import '../models/Combination.dart';
-import 'package:amazing_combination/models/Brand.dart';
-
 class CombinationController extends GetxController {
+  String combinationId;
+  Rx<Combination> combination = Combination().obs;
+  CombinationController(this.combinationId);
 
-  Brand brand;
-  RxList<Combination> combinationList = RxList<Combination>();
-
-  CombinationController(this.brand);
   @override
-  void onInit () {
-    combinationList.bindStream(Database().combinationStream(brand.name));
-
+  void onInit() {
+    combination.bindStream(Database().combinationStream(combinationId));
   }
-    void addCombination(Combination combination) async {
-      await FirebaseFirestore.instance
-          .collection('Combinations')
-          .doc(combination.id)
-          .set({
-        'name': combination.name,
-        'brand': combination.brand,
-        'menuList': combination.menuList,
-        'tags': combination.tags,
-        'imageUrls': combination.imageUrls,
-        'description': combination.description,
-        'createdDateTime': FieldValue.serverTimestamp(),
-        'like': combination.like,
-        'likePerson': combination.likePerson,
-        'uid': combination.uid,
-        'maker': combination.maker,
-      });
-    }
-    void updateLike(Combination combination){
-      FirebaseFirestore.instance
-          .collection('Combinations')
-          .doc(combination.id)
-          .update({
-        'like' : combination.like,
-        'likePerson' : combination.likePerson,
-      });
-      Get.find<BrandController>().updateLike(combination);
-      Get.find<TagController>().updateLike(combination);
-    }
+
+  void updateLike(Combination combination) {
+    FirebaseFirestore.instance
+        .collection('Combinations')
+        .doc(combination.id)
+        .update({
+      'like': combination.like,
+      'likePerson': combination.likePerson,
+    });
+    Get.find<BrandController>().updateLike(combination);
+    Get.find<UserCombinationController>().updateLike(combination);
+  }
+
+  void updateComment(Combination combination) {
+    FirebaseFirestore.instance
+        .collection('Combinations')
+        .doc(combination.id)
+        .update({'numOfComments': combination.numOfComments});
+    Get.find<BrandController>().updateComment(combination);
+    Get.find<UserCombinationController>().updateComment(combination);
+  }
 }

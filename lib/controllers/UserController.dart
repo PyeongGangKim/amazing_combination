@@ -83,6 +83,7 @@ class UserController extends GetxController {
        'likePerson': combination.likePerson,
        'uid': combination.uid,
        'maker': combination.maker,
+       'numOfComments': 0,
      });
   }
 }

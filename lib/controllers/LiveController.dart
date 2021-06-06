@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 
 class LiveController extends GetxController {
   RxList<Combination> combinationsByLikes = RxList();
-  // RxList<Combination> combinationsByComments = RxList();
+  RxList<Combination> combinationsByComments = RxList();
 
-  List<Widget> liveTabs = [CombinationListLive(), CombinationListLive()];
+  List<Widget> liveTabs = [CombinationListLive(byLikes: true,), CombinationListLive(byLikes: false,)];
 
   @override
   void onInit() {
@@ -25,7 +25,17 @@ class LiveController extends GetxController {
       return ret;
     }));
 
-    // TODO: rating
-    // Sorted by number of comments?
+    combinationsByComments.bindStream(FirebaseFirestore.instance
+        .collection('Combinations')
+        .orderBy('numOfComments', descending: true)
+        .snapshots()
+        .map((combinations) {
+      List<Combination> ret = [];
+      combinations.docs.forEach((combination) {
+        ret.add(Combination.fromFirebase(combination));
+      });
+      return ret;
+    }));
+
   }
 }

@@ -20,8 +20,8 @@ class Database {
         .map((brands) =>
             brands.docs.map((brand) => Brand.fromFirebase(brand)).toList());
   }
-
-  Stream<List<Combination>> combinationStream(String brandName) {
+  
+  Stream<List<Combination>> combinationsByBrandStream(String brandName) {
     return _firestore
         .collection("Brands")
         .doc(brandName)
@@ -61,5 +61,13 @@ class Database {
         .doc(uid)
         .snapshots()
         .map((user) => User.fromFirebase(user));
+  }
+  
+  Stream<Combination> combinationStream(String combinationId) {
+    return FirebaseFirestore.instance
+        .collection('Combinations')
+        .doc(combinationId)
+        .snapshots()
+        .map((combination) => Combination.fromFirebase(combination));
   }
 }
