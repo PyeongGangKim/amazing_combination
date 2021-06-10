@@ -91,7 +91,7 @@ Widget BrandList(int brandIdx) {
 
 Widget _Brand(List<Brand> brands, int idx) {
   return ListTile(
-    leading: Image.asset('img/yee.PNG'),
+    leading: Image.network(brands[idx].imageUrl),
     // leading: Icon(Icons.fastfood),
     title: Text(brands[idx].name),
     onTap: () {
