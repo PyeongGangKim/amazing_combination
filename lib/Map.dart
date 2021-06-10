@@ -114,7 +114,10 @@ class _StoreListTileState extends State<StoreListTile> {
             height: 100,
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(2)),
-              child: Image.asset('img/yee.PNG', fit: BoxFit.cover),
+              child: Image.network(
+                widget.brand.imageUrl,
+                fit: BoxFit.cover,
+              ),
             )),
         onTap: () async {
           final controller = await widget.mapController.future;

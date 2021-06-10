@@ -22,7 +22,11 @@ class CombinationPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Image.asset('img/yee.PNG'),
+          Image.network(
+              brand.imageUrl,
+            width: MediaQuery.of(context).size.height,
+            height: 250,
+          ),
           Expanded(
             child: CombinationListBrand(brand),
           )

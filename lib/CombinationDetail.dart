@@ -31,10 +31,6 @@ class CombinationDetailPage extends StatelessWidget {
           if (combination.menuList == null) {
             menuList = '';
           } else {
-            // for(int i = 0; i < combination.menuList.length; ++i) {
-            //   print(combination.menuList[i]);
-            // }
-            // print('yeeeeeee');
             menuList = combination.menuList[0];
             for (int i = 1; i < combination.menuList.length; ++i) {
               menuList += ', ' + combination.menuList[i];
@@ -134,6 +130,7 @@ class CombinationDetailPage extends StatelessWidget {
                                     Icon(
                                       Icons.comment,
                                       color: Colors.yellow,
+                                      size: 30,
                                     ),
                                     Text(combination.numOfComments.toString()),
                                   ],
@@ -223,17 +220,17 @@ class CombinationDetailPage extends StatelessWidget {
                             if (commentController.comments.isEmpty) {
                               return Text('No comments yet...');
                             } else {
-                              // print('yee ' + commentController.comments.length.toString());
                               return Expanded(
                                 child: ListView.builder(
                                   itemCount: commentController.comments.length,
                                   itemBuilder: (_, index) {
-                                    // print(index.toString() + '   ' + commentController.comments[index].content);
-                                    return Text(commentController
-                                            .comments[index].maker +
-                                        ':     ' +
-                                        commentController
-                                            .comments[index].content);
+                                    return ListTile(
+                                      leading: Icon(
+                                          Icons.person
+                                      ),
+                                      title: Text(commentController.comments[index].maker),
+                                      subtitle: Text(commentController.comments[index].content),
+                                    );
                                   },
                                 ),
                               );
@@ -277,7 +274,7 @@ class CombinationDetailPage extends StatelessWidget {
                                 child: Text('취소'),
                                 onPressed: () {
                                   if (commentController.text == '')
-                                    print('yeee');
+                                    print('yee');
                                   else
                                     print(commentController.text);
                                   Get.back();

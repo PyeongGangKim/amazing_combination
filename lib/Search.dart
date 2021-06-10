@@ -21,6 +21,7 @@ class SearchPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text('검색'),
       ),
       body: Column(

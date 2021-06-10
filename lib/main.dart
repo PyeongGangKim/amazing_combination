@@ -40,8 +40,8 @@ class MyApp extends StatelessWidget {
 
         ),
         fontFamily: 'BMJUA',
-        primaryColor: Color(0xFFED794E),
-        accentColor: Color(0xFFED794E),
+        primaryColor: Color(0xFF2AC1BC),
+        accentColor: Color(0xFF2AC1BC),
       ),
       title: 'Amazing_Combination',
       home: MainPage(),
@@ -92,7 +92,7 @@ class _MainPageState extends State<MainPage> {
   Widget bottomNavigator() {
     return BottomNavigationBar(
       showUnselectedLabels: true,
-      unselectedItemColor: Theme.of(context).primaryColor,
+      unselectedItemColor: Colors.grey,
       selectedItemColor: Theme.of(context).primaryColor,
       unselectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
       selectedLabelStyle: TextStyle(color: Theme.of(context).primaryColor),

@@ -17,14 +17,16 @@ class BrandPage extends StatelessWidget {
       length: 9,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.white,
           title: Text('브랜드'),
           bottom: TabBar(
+            labelColor: Theme.of(context).primaryColor,
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: Theme.of(context).primaryColor,
             labelPadding: EdgeInsets.symmetric(horizontal: 20),
             isScrollable: true,
             tabs: [
-              Tab(
-                text: '한식',
-              ),
+              Tab(text: '한식',),
               Tab(text: '일식'),
               Tab(text: '중식'),
               Tab(text: '치킨'),
@@ -91,8 +93,12 @@ Widget BrandList(int brandIdx) {
 
 Widget _Brand(List<Brand> brands, int idx) {
   return ListTile(
-    leading: Image.network(brands[idx].imageUrl),
-    // leading: Icon(Icons.fastfood),
+    leading: Image.network(
+        brands[idx].imageUrl,
+        width: 120,
+        height: 100,
+
+    ),
     title: Text(brands[idx].name),
     onTap: () {
       print(brands[idx].name);

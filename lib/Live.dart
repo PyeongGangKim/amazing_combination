@@ -15,11 +15,15 @@ class LivePage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.white,
           title: Text('실시간'),
           bottom: TabBar(
+            unselectedLabelColor: Colors.grey,
+            labelColor: Theme.of(context).primaryColor,
+            indicatorColor: Theme.of(context).primaryColor,
             tabs: [
               Tab(text: '좋아요 많은 순',),
-              Tab(text: '평점 높은 순'),
+              Tab(text: '댓글 많은 순'),
             ],
           ),
         ),
