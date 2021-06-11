@@ -23,6 +23,7 @@ class EditPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text('정보 수정'),
       ),
       body: GetBuilder<UserController>(
@@ -67,6 +68,9 @@ class EditPage extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
+                      ),
                       child: Text('저장'),
                       onPressed: () {
                         userController.updateUser(nameController.text, descController.text, controller.selectedImage.value);

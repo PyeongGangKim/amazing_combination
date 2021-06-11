@@ -44,6 +44,9 @@ class MyPage extends StatelessWidget {
                                     await authenticationController.signOut();
                                   },
                                   child: Text('로그아웃'),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
+                                  ),
                                 ),
                                 Container(
                                   padding: EdgeInsets.fromLTRB(10, 30, 10, 50),
