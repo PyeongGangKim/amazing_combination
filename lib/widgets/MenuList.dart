@@ -22,6 +22,7 @@ class _MenuListState extends State<MenuList> {
   Widget menuList() {
 
     return ListView.separated(
+      shrinkWrap: true,
       itemBuilder: ( _, int index) => _menu(index),
       separatorBuilder: (_, int index) => const Divider(),
       itemCount: menuController.menuList.length,

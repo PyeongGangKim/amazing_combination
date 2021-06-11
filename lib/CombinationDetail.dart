@@ -209,7 +209,7 @@ class CombinationDetailPage extends StatelessWidget {
                       ),
                       Divider(
                         thickness: 3,
-                        color: Color(0xFFED794E),
+                        color: Theme.of(context).primaryColor,
                       ),
                       GetX<CommentController>(
                         init: Get.put<CommentController>(

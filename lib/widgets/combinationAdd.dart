@@ -121,7 +121,7 @@ class _CombinationAddState extends State<CombinationAdd> {
                                           menuController.menuList.length,
                                           false)),
                                       width: 400,
-                                      height: 100,
+                                      height: 200,
                                     )
                               : Align(child: CircularProgressIndicator()),
                         ],
@@ -129,7 +129,12 @@ class _CombinationAddState extends State<CombinationAdd> {
                     ),
                     actions: <Widget>[
                       TextButton(
-                          child: Text('취소'),
+                          child: Text(
+                              '취소',
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
                           onPressed: () {
                             Get.back();
                             menuController.selectedMenu.clear();
@@ -138,24 +143,28 @@ class _CombinationAddState extends State<CombinationAdd> {
                             Get.delete<MenuController>();
                           }),
                       TextButton(
-                          child: Text('추가'),
+                          child: Text(
+                              '추가',
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
                           onPressed: () async {
                             print('add new combination');
                             if (!_formKey.currentState.validate() ||
                                 menuController.selectedMenu.isEmpty) {
-                              Get.snackbar(
-                                  'Can not', 'Fill Name and Select Menu',
-                                  snackPosition: SnackPosition.BOTTOM);
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content:
+                                Text('조합 이름과 조합 설명 그리고 메뉴를 선택하셔야 합니다. '),
+                              ));
                             } else {
-                              await addCombination(
+                              addCombination(
                                   nameController.text,
                                   descController.text,
                                   menuController.menuList,
                                   menuController);
-                              menuController.selectedMenu.clear();
-                              imageList.clear();
-                              imageUrls.clear();
-                              Get.delete<MenuController>();
                               Get.back();
                             }
                           })
@@ -223,5 +232,10 @@ class _CombinationAddState extends State<CombinationAdd> {
     );
     await brandController.addCombinationInBrand(
         newCombination, widget.brand.name);
+    menuController.selectedMenu.clear();
+    imageList.clear();
+    imageUrls.clear();
+    Get.delete<MenuController>();
   }
+
 }

@@ -12,6 +12,7 @@ class MyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text('마이페이지'),
       ),
       body: SingleChildScrollView(

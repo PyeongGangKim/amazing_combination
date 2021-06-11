@@ -4,14 +4,12 @@ class Menu {
   String id;
   String name;
   int price;
-  String imageUrl;
   List<String> tags;
   String brand;
   Menu({
     this.id,
     this.name,
     this.price,
-    this.imageUrl,
     this.tags,
     this.brand,
   });
@@ -21,7 +19,6 @@ class Menu {
       id: snapshot.id,
       name: data['name'],
       price: data['price'],
-      imageUrl: data['imageUrl'],
       tags: data['tags'].cast<String>(),
       brand: data['brand'],
     );

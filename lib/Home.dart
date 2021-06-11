@@ -3,6 +3,7 @@ import 'package:amazing_combination/main.dart';
 import 'package:amazing_combination/Map.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -18,7 +19,7 @@ class HomePage extends StatelessWidget {
         crossAxisCount: 3,
         children: <Widget>[
           TagButton('한식', 0, context),
-          TagButton('일식', 1, context),
+          TagButton('일식', 1, context ),
           TagButton('중식', 2, context),
           TagButton('치킨', 3, context),
           TagButton('피자', 4, context),
@@ -38,13 +39,16 @@ class HomePage extends StatelessWidget {
   }
 }
 
-Widget TagButton(String tag, int idx, BuildContext context) {
+Widget TagButton(String tag, int idx, BuildContext context, /*IconData foodIcon, Color foodColor*/) {
   // TODO: onPressed effect
   return Column(
     children: <Widget>[
       IconButton(
         iconSize: 80,
-        icon: Icon(Icons.fastfood),
+        icon: Icon(
+            Icons.fastfood,
+            //color: foodColor,
+        ),
         // icon: Image.asset('img/sushi.svg'),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(

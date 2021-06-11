@@ -18,6 +18,7 @@ class CombinationPage extends StatelessWidget {
     print('combination page: ' + brand.name);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text('조합'),
       ),
       body: Column(
